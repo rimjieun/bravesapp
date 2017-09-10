@@ -52,7 +52,7 @@ const vendorSchema = new mongoose.Schema ({
 vendorSchema.methods.calculateTotal = function () {
   
   this.orders.forEach( (order) => {
-    let orderTotal;
+    let orderTotal=0.00;
     order.map( (product) {
       orderTotal += product.price
     })
