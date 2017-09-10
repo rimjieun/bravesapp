@@ -16,7 +16,6 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
     minlength: 8,
     trim: true
   },
@@ -59,6 +58,13 @@ const userSchema = new mongoose.Schema({
   },
 
 
+});
+
+userSchema.pre('save', function(next) {
+
+  if (this.role === 'vendor' && !this.password) {
+    return next(new Error('The password is required when the role is vendor'));
+  }
 });
 
 userSchema.methods.showUser = function () {

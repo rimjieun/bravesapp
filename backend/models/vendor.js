@@ -14,6 +14,17 @@ const orderSchema = new mongoose.Schema({
   comments: {
     type: String
   },
+  customer: {
+    firstName: {
+      type: String
+    },
+    lastName: {
+      type: String
+    },
+    email: {
+      type: String
+    }
+  },
   orderNumber: {
     type: String
   },
@@ -26,7 +37,16 @@ const orderSchema = new mongoose.Schema({
     match: [/^\d+\.\d{2}$/, 'The price must be a number ending with two decimal places.']
   }
 
-})
+});
+
+const locationSchema = new mongoose.Schema({
+  orders: {
+    type:[orderSchema]
+  },
+  locationNumber: {
+    type: Number
+  }
+});
 
 const vendorSchema = new mongoose.Schema ({ 
 
@@ -43,13 +63,13 @@ const vendorSchema = new mongoose.Schema ({
     required: true
   },
   orders: {
-    type:[orderSchema]
+    type:[locationSchema]
   },
   completedOrders: {
     type:[orderSchema]
   } 
 
-})
+});
 
 
 vendorSchema.methods.calculateTotal = function () {
@@ -57,7 +77,7 @@ vendorSchema.methods.calculateTotal = function () {
   this.orders.forEach( (order) => {
     let orderTotal=0.00;
     order.map( (product) => {
-      orderTotal += product.price;
+      orderTotal += product.price * product.quantityOrdered;
     });
     order.total = orderTotal;
   });
