@@ -37,6 +37,14 @@ const userSchema = new mongoose.Schema({
 
 
   },
+  // for the user, their sectionnumber on their ticket
+  // for the vendor, their location number
+  sectionNumber: {
+    type: Number
+  },
+  vendorName: {
+
+  },
   currentOrder: {
     order: {
       type: [productSchema]
@@ -54,6 +62,9 @@ const userSchema = new mongoose.Schema({
     },
     comments: {
       type: String
+    },
+    locationNumber: {
+      type:Number
     }
   },
 
@@ -66,6 +77,17 @@ userSchema.pre('save', function(next) {
     return next(new Error('The password is required when the role is vendor'));
   }
 });
+
+
+
+
+userSchema.methods.locationFinder = function
+() {
+  switch(this.sectionNumber && this.vendorName == '1871 Grille') 
+    case: 337-343
+      this.order.locationNumber = 343
+
+}
 
 userSchema.methods.showUser = function () {
   return {
@@ -87,3 +109,8 @@ userSchema.methods.validatePassword = function (password) {
 const User = mongoose.model('user', UserSchema);
 
 module.exports = User;
+
+
+User.locationFinder()
+
+var locationNumber = User.currentOrder.locationNumber
