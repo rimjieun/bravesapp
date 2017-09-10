@@ -10,10 +10,25 @@ const orderSchema = new mongoose.Schema({
   completed: {
     type: Boolean,
     default: false
+  },
+  comments: {
+    type: String
+  },
+  orderNumber: {
+    type: String
+  },
+  orderTaken: {
+    type: Date,
+    default: Date()
+  },
+  total: {
+    type: Number,
+    match:  match: [/^\d+\.\d{2}$/, 'The price must be a number ending with two decimal places.'];
   }
+
 })
 
-const vendorSchema = new mongoose.Schema({ 
+const vendorSchema = new mongoose.Schema ({ 
 
   vendorName: {
     type: String,
@@ -32,6 +47,18 @@ const vendorSchema = new mongoose.Schema({
   }
 
 })
+
+
+vendorSchema.methods.calculateTotal = function () {
+  
+  this.orders.forEach( (order) => {
+    let orderTotal;
+    order.map( (product) {
+      orderTotal += product.price
+    })
+    order.total = orderTotal;
+  })
+}
 
 
 const Vendor = mongoose.model('vendor', vendorSchema);

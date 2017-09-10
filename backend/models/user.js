@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema({
   },
   currentOrder: {
     order: {
-     type: [productSchema]
+    type: [productSchema]
     },
     orderNumber: {
       type: string
@@ -52,6 +52,9 @@ const userSchema = new mongoose.Schema({
     },
     completed: {
       type: Boolean
+    },
+    comments: {
+      type: String
     }
   },
 
