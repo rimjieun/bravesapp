@@ -14,11 +14,11 @@ const productSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    required: true
+    default: 'Please provide a description'
   },
   productImageUrl: {
     type:String,
-    required: true
+    default: 'Please provide an image'
   },
   vendor: {
     vendorName: {
@@ -26,7 +26,7 @@ const productSchema = new mongoose.Schema({
       required: true
     },
     id: {
-    type: mongoose.Schema.Types.ObjectID
+      type: mongoose.Schema.Types.ObjectId
     }
     
   },
@@ -35,7 +35,7 @@ const productSchema = new mongoose.Schema({
     default: 0
   }
 
-})
+});
 
 productSchema.methods.display = function () {
   return {
@@ -44,7 +44,7 @@ productSchema.methods.display = function () {
     description: this.description,
     vendor: this.vendor,
     id: this._id
-  }
-}
+  };
+};
 
 module.exports = productSchema;

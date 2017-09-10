@@ -4,13 +4,13 @@ const bcrypt = require('bcryptjs');
 const productSchema = require('./products');
 
 const userValidation = [/^\w{4,}$/, 'Username must contain only alphanumberic characters'];
+const roleValidation = [/(?=^vendor$)|(?=^customer$)/, 'Role must be a teacher or a student'];
 
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
     minlength: 4,
-    maxlength: maxlength,
     match: userValidation,
     trim: true
   },
@@ -23,35 +23,35 @@ const userSchema = new mongoose.Schema({
   first_name: {
     type: String,
     minlength: 2,
-    maxlength: maxlength,
     required: true,
     trim: true
   },
   last_name: {
     type: String,
     minlength: 2,
-    maxlength: maxlength,
     required: true,
     trim: true
   },
   role: {
     type: String,
+    match: roleValidation
 
 
   },
   currentOrder: {
     order: {
-    type: [productSchema]
+      type: [productSchema]
     },
     orderNumber: {
-      type: string
+      type: String
     },
     orderTaken: {
       type: Date,
       default: Date()
     },
     completed: {
-      type: Boolean
+      type: Boolean,
+      default: false
     },
     comments: {
       type: String
