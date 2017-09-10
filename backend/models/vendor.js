@@ -134,6 +134,7 @@ module.exports = Vendor;
     4. Vendor POST
       -vendor will find the matching user (which is nested in the order object using User.find()...)
       -vendor will change completed to TRUE
+      -vendor will ALSO slice the order, and move it to the completed orders array (remove from queue)
 
 
     5. User GET update on their order
