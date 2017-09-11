@@ -47,7 +47,7 @@ const userSchema = new mongoose.Schema({
   },
   sectionError: {
     type: String
-  }
+  },
 
   currentOrder: {
     vendorName: {
@@ -171,7 +171,6 @@ userSchema.methods.locationFinder = function () {
     }
 
   }
-
 
 } else if (vendorName === "The Slice") {
 
