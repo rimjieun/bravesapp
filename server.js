@@ -18,7 +18,9 @@ app.use(morgan('combined'));
 
 const Vendor = require('./backend/models/vendor');
 const mock = require('./backend/models/vendor_mock');
+const foodRouter = require('./backend/routes/food_routes');
 
+app.use('/food', foodRouter);
 
 const dbConnection = (dbUrl=process.env.DB_URL) => {
   return mongoose.connect(dbUrl)

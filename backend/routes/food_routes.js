@@ -4,17 +4,19 @@
 
 const express = require("express"), foodRouter = new express.Router();
 const Vendor = require("../models/vendor");
+const mongoose = require("mongoose");
 
 mongoose.Promise = global.Promise;
 
 // User gets restaurant list
 foodRouter.get("/foodlist", function(req, res, connectionError){
-   if(connectionError){
-       res.json({status: 502, message: "connection failed"});
-   }
+   // if(connectionError){
+   //     res.json({status: 502, message: "connection failed"});
+   // }
    return Vendor.find({})
        .then(function(restaurants){
-            res.status(200).json(restaurants.userView());
+            console.log('GET request success');
+            res.status(200).json(restaurants);
        })
        .catch(function (foodError){
         console.log(foodError); //do something
@@ -47,3 +49,5 @@ foodRouter.get("/location/:number", function(req, res, connectionError){
 
 
 });
+
+module.exports = foodRouter;
