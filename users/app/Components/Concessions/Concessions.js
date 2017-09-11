@@ -7,9 +7,12 @@ import List from './../common/List';
 export default class Concessions extends Component {
 
   render() {
+
+    const title = 'C O N C E S S I O N S';
+
     return (
       <View> 
-        <Header />
+        <Header title={title} />
         <Banner />
         <List />
       </View>

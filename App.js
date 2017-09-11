@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Concessions from './users/app/components/Concessions/Concessions'
+import Concessions from './users/app/Components/Concessions/Concessions'
 import axios from 'axios';
 
 export default class App extends React.Component {
