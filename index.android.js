@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, View } from 'react-native';
 // import $ from 'jquery';
-import Header from './users/Components/ConcessionsComponent/Header';
-import Banner from './users/Components/ConcessionsComponent/Banner';
-import Vendors from './users/Components/ConcessionsComponent/Vendors';
+import Header from './users/app/Components/ConcessionsComponent/Header';
+import Banner from './users/app/Components/ConcessionsComponent/Banner';
+import Vendors from './users/app/Components/ConcessionsComponent/Vendors';
 
 export default class bravesapp extends Component {
 
@@ -57,7 +57,7 @@ export default class bravesapp extends Component {
 
   render() {
     return (
-      <View>
+      <View style={{ flex: 1 }}>
         <Header />
         <Banner />
         <Vendors vendors={ this.state.vendors } />
