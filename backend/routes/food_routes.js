@@ -19,7 +19,7 @@ foodRouter.get("/foodlist", function(req, res, connectionError){
        .catch(function (foodError){
         console.log(foodError); //do something
         return res.status(500).json({"message": "Internal error"});
-   }
+   })
 
 });
 
@@ -42,7 +42,8 @@ foodRouter.get("/location/:number", function(req, res, connectionError){
        })
        .catch(function (catchLocationError){
         console.log(catchLocationError);
-        return res.status(500).json({"message": "Internal error"});}
+        return res.status(500).json({"message": "Internal error"});
+       })
 
 
 });
