@@ -31,16 +31,16 @@ foodRouter.get("/location/:number", function(req, res, connectionError){
    let locationNumber = req.param.number;
    return Vendor.find({})
        .then(function(specificRestaurant) {
-           array = [];
-           forEach(specificRestaurant.locationOrder){
-               if(specificRestaurant.locationNumber === locationNumber)
-                   array.push(this);
+           let yourOrderList = [];
+           specificRestaurant.locationOrders.forEach(function (item){
+               if(item.locationNumber === locationNumber)
+                   array.push(item);
 
-           }
-           res.status(200).json(vendorOrder);
+           });
+           res.status(200).json(yourOrderList.slice());
 
        })
-       .catch(function (catchLocationerror){
+       .catch(function (catchLocationError){
         console.log(catchLocationError);
         return res.status(500).json({"message": "Internal error"});}
 
