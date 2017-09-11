@@ -16,35 +16,35 @@ export default class bravesapp extends Component {
 
   getVendors() {
 
-    // $.ajax({
-    //   url: '',
-    //   dataType: 'json',
-    //   method: 'GET'
-    //   cache: false,
-    //   success: function(data) {
-    //     this.setState({vendors: data}, function() {
-    //       console.log(this.state);
-    //     });
-    //   }.bind(this),
-    //   error: function(xhr, status, err) {
-    //     console.log(err);
-    //   }
-    // });
-
-    this.setState({
-      vendors: [
-        {
-          id: '1',
-          name: 'The Spice',
-          categories: ['Pizza', 'Breadsticks', 'Peanuts']
-        },
-        {
-          id: '2',
-          name: '1871 Grille',
-          categories: ['Burgers', 'Chicken Tender', 'Peanuts']
-        }
-      ]
+    $.ajax({
+      url: '',
+      dataType: 'json',
+      method: 'GET'
+      cache: false,
+      success: function(data) {
+        this.setState({vendors: data}, function() {
+          console.log(this.state);
+        });
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.log(err);
+      }
     });
+
+    // this.setState({
+    //   vendors: [
+    //     {
+    //       id: '1',
+    //       name: 'The Spice',
+    //       categories: ['Pizza', 'Breadsticks', 'Peanuts']
+    //     },
+    //     {
+    //       id: '2',
+    //       name: '1871 Grille',
+    //       categories: ['Burgers', 'Chicken Tender', 'Peanuts']
+    //     }
+    //   ]
+    // });
   }
 
   componentWillMount() {

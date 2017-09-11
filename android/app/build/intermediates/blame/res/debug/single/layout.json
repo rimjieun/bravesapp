@@ -8,12 +8,12 @@
         "source": "C:\\Users\\Jieun\\Desktop\\Projects\\hackathons\\bravesapp\\android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.0.1\\res\\layout\\abc_list_menu_item_icon.xml"
     },
     {
-        "merged": "C:\\Users\\Jieun\\Desktop\\Projects\\react_native\\DemoApp\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_select_dialog_material.xml",
-        "source": "C:\\Users\\Jieun\\Desktop\\Projects\\react_native\\DemoApp\\android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.0.1\\res\\layout\\abc_select_dialog_material.xml"
-    },
-    {
         "merged": "C:\\Users\\Jieun\\Desktop\\Projects\\react_native\\DemoApp\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_lines.xml",
         "source": "C:\\Users\\Jieun\\Desktop\\Projects\\react_native\\DemoApp\\android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.0.1\\res\\layout\\notification_template_lines.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jieun\\Desktop\\Projects\\react_native\\DemoApp\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_select_dialog_material.xml",
+        "source": "C:\\Users\\Jieun\\Desktop\\Projects\\react_native\\DemoApp\\android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.0.1\\res\\layout\\abc_select_dialog_material.xml"
     },
     {
         "merged": "C:\\Users\\Jieun\\Desktop\\Projects\\react_native\\DemoApp\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_checkbox.xml",
