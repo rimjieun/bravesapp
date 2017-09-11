@@ -1,31 +1,12 @@
-import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, View } from 'react-native';
-import ListItem from './ListItem';
+import React from 'react';
+import { View, Text } from 'react-native';
 
-export default class List extends Component {
+export default class List extends React.Component {
 
   render() {
-
-    let listItems;
-    if (this.props.list) {
-      listItems = this.props.list.map(item => {
-        return (
-          <ListItem key={item.id} item={item} />
-        );
-      });
-    }
-
     return (
-      {listItems}
+      <Text>List</Text>
     );
   }
+
 }
-
-const styles = StyleSheet.create({
-  list: {
-    flex: 8,
-    backgroundColor: '#f5f2f0'
-  }
-});
-
-AppRegistry.registerComponent('List', () => List);

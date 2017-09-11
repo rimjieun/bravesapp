@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Header from './../common/Header';
 import Banner from './../common/Banner';
 import List from './../common/List';
@@ -11,10 +11,8 @@ export default class Concessions extends Component {
       <View> 
         <Header />
         <Banner />
-        <List list={this.props.vendors} />
+        <List />
       </View>
     );
   }
 }
-
-AppRegistry.registerComponent('Concessions', () => Concessions);

@@ -1,22 +1,12 @@
-import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, View, Image } from 'react-native';
+import React from 'react';
+import { View, Text } from 'react-native';
 
-export default class Banner extends Component {
+export default class Banner extends React.Component {
+
   render() {
     return (
       <Text>Banner</Text>
     );
   }
+
 }
-
-const styles = StyleSheet.create({
-  banner: {
-    flex: 5
-  },
-  image: {
-    flex: 1,
-    height: 120
-  }
-});
-
-AppRegistry.registerComponent('Banner', () => Banner);
