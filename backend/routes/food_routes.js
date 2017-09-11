@@ -3,7 +3,7 @@
  */
 
 const express = require("express"), foodRouter = new express.Router();
-const Vendor = require("../backend/models/vendor");
+const Vendor = require("../models/vendor");
 
 mongoose.Promise = global.Promise;
 
