@@ -54,9 +54,6 @@ const runServer = (port=process.env.PORT) => {
 if (require.main === module ) {
   runServer()
   .then( () => {
-    app.listen(port, () => {
-      console.log("App is starting at port", port);
-    });
     dbConnection();
 
   })
