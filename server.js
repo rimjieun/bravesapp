@@ -1,7 +1,8 @@
 // Import libraries and frameworks 
-const express = require('express');
-const mongoose = require('mongoose');
-const morgan = require('morgan');
+const express = require('express'),
+      mongoose = require('mongoose'),
+      morgan = require('morgan'),
+      path = require("path");
 
 // Set mongoose promises to global promises (mongoose promises are deprecated)
 mongoose.Promise = global.Promise;
@@ -17,8 +18,6 @@ app.use(morgan('combined'));
 
 const Vendor = require('./backend/models/vendor');
 const mock = require('./backend/models/vendor_mock');
-
-
 
 
 const dbConnection = (dbUrl=process.env.DB_URL) => {
