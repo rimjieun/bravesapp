@@ -50,6 +50,25 @@ const runServer = (port=process.env.PORT) => {
 
 };
 
+const closeServer = () => {
+  
+  return mongoose.disconnect()
+    .then( () => { 
+      console.log('mongoose disconnecting');
+      return new Promise( (resolve, reject) => {
+        console.log('Closing server');
+        server.close(err => {
+          if (err) {
+            reject(err);
+            return;
+          } 
+          resolve();
+        });
+      }); 
+    });
+  };
+
+
 if (require.main === module ) {
   runServer()
   .then( () => {
