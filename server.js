@@ -25,7 +25,7 @@ const dbConnection = (dbUrl=process.env.DB_URL) => {
   return mongoose.connect(dbUrl)
     .then( () => {
       console.log('Mongoose connection to bravesDb active.');
-      return Vendor.findOne()
+      return Vendor.find()
        .then( (result) => console.log('now in the db:', result));
     })
     .catch(err => console.log(err));

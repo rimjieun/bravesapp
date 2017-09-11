@@ -1,5 +1,6 @@
 
-module.exports = { 
+module.exports = {
+  vendors: 
   [
   {
   vendorName: '1871 Grille',
@@ -81,8 +82,6 @@ module.exports = {
   ]
 
 },
-
-
 
 
 {
@@ -197,3 +196,4 @@ menu: [
 
 }
   ]
+}
