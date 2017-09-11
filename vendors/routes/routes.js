@@ -1,12 +1,8 @@
 
-module.exports = (app, path) => {
+module.exports = (app, path, passport) => {
 
 
-    app.get("/signup", (req, res) => {
 
-        res.sendFile(path.join(__dirname, "/../views/signup.html"));
-
-    });
 
     app.get("/", (req, res) => {
 
@@ -14,9 +10,16 @@ module.exports = (app, path) => {
 
     });
 
+    app.get("/signup", (req, res) => {
+
+        res.sendFile(path.join(__dirname, "/../views/signup.html"));
+
+    });
+
     app.get("/dashboard", (req, res) => {
 
         res.sendFile(path.join(__dirname, "/../views/dashboard.html"));
+
 
     });
 

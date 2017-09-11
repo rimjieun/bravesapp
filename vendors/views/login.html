@@ -3,10 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Sign In </title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
 
-<h1>I am the Login</h1>
+<form action="#">
+    <input type="email" id="email"> <br>
+    <input type="password" id="password"> <br>
 
+    <button id="login">Login</button>
+</form>
+
+
+<script type="text/javascript">
+    $("#login").on("click", (event) => {
+
+        event.preventDefault();
+
+        const email = $("#email").val().trim();
+        const password = $("#password").val().trim();
+
+        const vendor = {
+            email:email,
+            password:password
+        };
+
+        $.post("/signup", vendor, (response) => {
+
+            console.log(response);
+
+        });
+
+        console.log(vendor);
+
+    });
+</script>
 </body>
 </html>

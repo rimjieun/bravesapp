@@ -16,6 +16,7 @@ const app = express(),
 // Enable env variables
 require('dotenv').config();
 
+require("./vendors/routes/routes")(app, path, passport);
 
 app.use(morgan("dev"));
 app.use(cookieParser);
@@ -27,6 +28,7 @@ app.use(passport.session());
 app.use(flash());
 
 
+
 const dbConnection = ( dbUrl = process.env.DB_URL) => {
     return mongoose.connect(dbUrl)
         .then( () => {
@@ -36,6 +38,7 @@ const dbConnection = ( dbUrl = process.env.DB_URL) => {
 };
 
 require("./vendors/routes/routes")(app, path, passport);
+
 
 let server;
 
