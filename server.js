@@ -18,13 +18,15 @@ app.use(morgan('combined'));
 
 const Vendor = require('./backend/models/vendor');
 const mock = require('./backend/models/vendor_mock');
+const foodRouter = require('./backend/routes/food_routes');
 
+app.use('/food', foodRouter);
 
 const dbConnection = (dbUrl=process.env.DB_URL) => {
   return mongoose.connect(dbUrl)
     .then( () => {
       console.log('Mongoose connection to bravesDb active.');
-      return Vendor.findOne()
+      return Vendor.find()
        .then( (result) => console.log('now in the db:', result));
     })
     .catch(err => console.log(err));
