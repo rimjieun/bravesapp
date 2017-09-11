@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, View } from 'react-native';
-// import $ from 'jquery';
-// import axios from 'axios';
-import request from 'request';
+import axios from 'axios';
 import Header from './users/app/Components/ConcessionsComponent/Header';
 import Banner from './users/app/Components/ConcessionsComponent/Banner';
 import Vendors from './users/app/Components/ConcessionsComponent/Vendors';
@@ -18,33 +16,17 @@ export default class bravesapp extends Component {
 
   getVendors() {
 
-    // axios({
-    //   method: 'get',
-    //   url: 'https://192.168.0.106/food/foodlist',
-    //   port: 8080
-    // }).then(data => {
-    //   console.log('potato');
-    //   // this.setState({vendors: data}, function() {
-    //   //     console.log(this.state);
-    //   // });
-    // }).catch(err => {
-    //   console.log('error')
-    // });
-
-    // $.ajax({
-    //   url: '/food/foodlist',
-    //   dataType: 'json',
-    //   method: 'GET',
-    //   cache: false,
-    //   success: function(data) {
-    //     this.setState({vendors: data}, function() {
-    //       console.log(this.state);
-    //     });
-    //   }.bind(this),
-    //   error: function(xhr, status, err) {
-    //     console.log(err);
-    //   }
-    // });
+    axios({
+      method: 'get',
+      url: 'https://jsonplaceholder.typicode.com/todos'
+    }).then(data => {
+      console.log('potato');
+      // this.setState({vendors: data}, function() {
+      //     console.log(this.state);
+      // });
+    }).catch(err => {
+      console.log('error');
+    });
 
     // this.setState({
     //   vendors: [
