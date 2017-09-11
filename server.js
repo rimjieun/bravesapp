@@ -12,7 +12,6 @@ require('dotenv').config();
 
 // Initialize server
 const app = express();
-const port = process.env.PORT || 3000;
 
 // Logging
 app.use(morgan('combined'));
@@ -32,7 +31,6 @@ const dbConnection = (dbUrl=process.env.DB_URL) => {
 };
 
 
-require("./backend/routes/routes")(app, path);
 let server;
 // console.log('PROCESS',process.env)
 const runServer = (port=process.env.PORT) => {
