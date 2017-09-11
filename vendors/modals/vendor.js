@@ -21,4 +21,4 @@ userSchema.methods.validatePassword = function (password) {
 
 };
 
-module.exports = mongoose.model("Vendor", userSchema);
+module.exports = mongoose.model("VendorUser", userSchema);

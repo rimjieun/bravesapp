@@ -25,6 +25,8 @@ module.exports = (passport) => {
         passReqToCallback: true
     }, (req, email, password, done) => {
 
+        console.log(email, password);
+
         process.nextTick(() => {
 
             Vendor.findOne({"local.email": email}, (err, user) => {
@@ -33,12 +35,12 @@ module.exports = (passport) => {
                 }
 
                 if(user){
-                    return done(null, false, req.flash('SignupMessage', "That email is already taken"));
+                    return done(null, false, {message: "Email already registered"});
                 } else{
                     const newVendor = new Vendor();
 
                     newVendor.local.email = email;
-                    newVendor.local.passport = newVendor.generateHash(password);
+                    newVendor.local.password = newVendor.generateHash(password);
 
                     newVendor.save((err) => {
                         if(err)
@@ -48,6 +50,26 @@ module.exports = (passport) => {
                     });
                 }
             });
+        });
+    }));
+
+
+    passport.use("local-login", new LocalStrategy({
+        usernameField:"email",
+        passwordField: "password",
+        passReqToCallback: true
+    }, function (req, email, password, done) {
+
+        Vendor.findOne({"local.email": email}, function (err, user) {
+            if(err)
+                return done(err);
+            if(!user)
+                return done(null, false, {message: "No user found"});
+
+            if(!user.validatePassword(password))
+                return done(null, false, {message: "Ooops! wrong password"});
+
+            return done(null, user);
         });
     }));
 
