@@ -74,14 +74,40 @@ const vendorSchema = new mongoose.Schema ({
 
 
 vendorSchema.methods.calculateTotal = function (locationNumber) {
-  
-  this.orders.forEach( (order) => {
-    let orderTotal=0.00;
-    order.map( (product) => {
-      orderTotal += product.price * product.quantityOrdered;
-    });
-    order.total = orderTotal;
+
+  this.orders.forEach( (location) => {
+    
+    if (locationNumber === location.locationNumber) {
+      
+      location.locationOrders.map( (order) => {
+        
+        let orderTotal=0.00;
+        order.forEach( (product) => {
+          orderTotal += product.price * product.quantityOrdered;
+          
+        });
+        location.total = orderTotal;
+        
+      });
+
+    }
   });
+};
+
+vendorSchema.methods.userView = function() {
+  return {
+    vendorName: this.vendorName,
+    foodCategory: this.foodCategory,
+    menu: this.menu
+  };
+};
+
+vendorSchema.methods.vendorView = function() {
+  return {
+    vendorName: this.vendorName,
+    orders: this.orders,
+    completedOrders: this.completedOrders
+  };
 };
 
 
