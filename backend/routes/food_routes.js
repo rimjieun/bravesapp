@@ -146,6 +146,22 @@ foodRouter.get("/location/:number", function (connectionError, req, res, next ) 
 
 
 // User POSTS Order
+// Endpoint expects:
+
+    /* 
+    req.body
+    {
+        username, password, firstName, lastName, role, section number, currentOrder.vendorName, currentOrder.order array of products
+    }
+
+    req.user
+    {
+        username, password
+    }
+    
+    */
+        
+    
 foodRouter.post('/user/order', function (connectionError, req, res, next) {
   if (connectionError) {
     return res.status(502).json({
@@ -153,12 +169,11 @@ foodRouter.post('/user/order', function (connectionError, req, res, next) {
     });
   } 
 
-  req.user.username;
-  req.user.password;
-  req.user.role;
+    // Authenticate user - uncomment when passport implemented
+    // if (!(req.user.username) && !(req.user.password) && req.user.role === "customer") {
+    //     return res.status(403).json({error: "Unauthorized"});
+    // }
 
-    // TODO verify req authentication for user req.user....
-    // Verify that the user has provided the necessary information
 
   const missingFields = [];
 
@@ -184,13 +199,27 @@ foodRouter.post('/user/order', function (connectionError, req, res, next) {
 
   let _user;
   return User  
-    .find({username: req.body.username, firstName:req.body.firstName, lastName: req.body.lastName})
+    .findOneAndUpdate({username: req.body.username, firstName:req.body.firstName, lastName: req.body.lastName})
     .then( (user) => {
-        // assign the user the right location using the internal method:
+        // assign the user the right location and generates an order number using the internal methods:
         user.locationFinder();
+        user.orderNumberGenerator();
         var locationNumber = user.currentOrder.locationNumber;
-        _user = user;
-        return Vendor.find()
+        
+
+        
+        // 1. If the passwords match, create the updated user object to be saved to the user DB and returned to the user (updating the order info on the front end), including the updated location value
+        // 2. Grab the current order and push it to the end of the array the the specific location
+        if (user.password === req.body.password) {
+            let currentOrder = Object.assign( {}, user.currentOrder);
+
+            _user = Object.assign( {}, user, req.body);
+
+            
+        }
+
+        console.log(_user);
+
     })
     .catch( (err) => {
         console.log('Internal server error: User not found', err);

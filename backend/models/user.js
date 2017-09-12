@@ -57,7 +57,6 @@ const userSchema = new mongoose.Schema({
     },
     orderNumber: {
       type: String,
-      // default: this.stringGenerator(20)
     },
     orderTaken: {
       type: Date,
@@ -79,6 +78,8 @@ const userSchema = new mongoose.Schema({
 
 });
 
+
+// Custom Validation making sure that the vendor name is provided when the user is a role: vendor
 userSchema.pre('save', function (next) {
   console.log('this is PRE SAVE');
   console.log(Boolean(this.password), 'inside PRE SAVE BOOLEAN');
@@ -202,7 +203,9 @@ userSchema.methods.locationFinder = function () {
 
 };
 
-userSchema.methods.stringGenerator = function(length) {
+
+// Call this function on a schema to generate an order number when it is placed!
+userSchema.methods.orderNumberGenerator = function(length) {
   var str = '';
   var chars ='0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz'.split(
       '');
@@ -213,22 +216,29 @@ userSchema.methods.stringGenerator = function(length) {
   for (var i = 0; i < length; i++) {
     str += chars[~~(Math.random() * charsLen)];
   }
-  return str;
+  this.currentOrder.orderNumber = str;
 };
 
+// privatizing method so the user password is never exposed to the front End
 userSchema.methods.showUser = function () {
   return {
     username: this.username,
     first_name: this.first_name,
     last_name: this.last_name,
-    id: this._id
+    role: this.role,
+    sectionNumber: this.sectionNumber,
+    id: this._id,
+    currentOrder: this.currentOrder,
+
   };
 };
 
+// Returns the hashed password
 userSchema.methods.hashPassword = function (password) {
   return bcrypt.hash(password, 10);
 };
 
+// Returns a boolean comparing the object's hash of the password to one passed into the function
 userSchema.methods.validatePassword = function (password) {
   return bcrypt.compare(password, this.password);
 };
