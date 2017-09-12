@@ -6,13 +6,16 @@ import ListComponent from './users/app/Components/ListComponent/ListComponent';
 
 export default class App extends React.Component {
 
-  onPressLearnMore() {
-    console.log("Back in Business World!!");
+  constructor(){
+    super();
+    this.state = {
+      vendors:[]
+    }
   }
 
   getAllVendors() {
     //VENDOR NAMES DATA
-    fetch('http://localhost:8080/food/vendors')
+    fetch('http://172.20.10.3:8080/food/vendors')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({vendors: responseJson.vendors});
@@ -22,8 +25,9 @@ export default class App extends React.Component {
       });
   }
 
-  getVendorNames(vendors) {
+  getVendorNames() {
     return this.state.vendors.map((vendor) => vendor.vendorName);
+    console.log(this.state.vendors);
   }
 
   getMenu(vendorName) {
