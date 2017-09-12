@@ -46,7 +46,10 @@ const locationSchema = new mongoose.Schema({
   },
   locationNumber: {
     type: Number
-  }
+  },
+  completedOrders: {
+    type:[orderSchema]
+  } 
 });
 
 const vendorSchema = new mongoose.Schema ({ 
@@ -63,31 +66,30 @@ const vendorSchema = new mongoose.Schema ({
     type: [productSchema],
     required: true
   },
-  orders: {
+  locations: {
     type:[locationSchema] // 7 indexes top layer (each location)
   },
-  completedOrders: {
-    type:[orderSchema]
-  } 
+  
 
 });
 
 
 vendorSchema.methods.calculateTotal = function (locationNumber) {
   
-  this.orders.forEach( (location) => {
+  this.locations.forEach( (location) => {
     
     if (locationNumber === location.locationNumber) {
       
-      location.locationOrders.map( (order) => {
-        
-        let orderTotal=0.00;
-        order.forEach( (product) => {
-          orderTotal += product.price * product.quantityOrdered;
-          
-        });
-        location.total = orderTotal;
-        
+      location.locationOrders.forEach( (order, index) => {
+        if (index === location.locationOrders.length-1) {
+      
+          let orderTotal=0.00;
+          order.forEach( (product) => {
+            orderTotal += product.price * product.quantityOrdered;
+            
+          });
+          location.total = orderTotal;
+        }
       });
 
     }
