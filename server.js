@@ -55,9 +55,7 @@ const runServer = (port=process.env.PORT) => {
   return new Promise( (resolve, reject) => {
     
     resolve(server = app.listen(port, () => {
-      console.log(`The server is running on port ${port}`)
-      ;
-
+      console.log(`The server is running on port ${port}`);
     }));
   
   });

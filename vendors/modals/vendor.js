@@ -6,6 +6,11 @@ const userSchema = mongoose.Schema({
     local            : {
         email        : String,
         password     : String,
+        username     : String,
+        role : {
+            type: String,
+            default: "vendor"
+        }
     }
 });
 

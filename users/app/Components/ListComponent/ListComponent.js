@@ -4,7 +4,7 @@ import Header from './../common/Header';
 import Banner from './../common/Banner';
 import List from './../common/List';
 
-export default class Concessions extends Component {
+export default class ListComponent extends Component {
 
   render() {
 
@@ -20,7 +20,7 @@ export default class Concessions extends Component {
     }
 
     return (
-      <View style={{flex: 1}}> 
+      <View style={{flex: 1}}>
         <Header title={title} />
         <Banner bannerURI={bannerURI} />
         <List component={this.props.component}  list={this.props.list} />

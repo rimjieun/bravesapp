@@ -15,7 +15,7 @@ export default class App extends React.Component {
 
   getAllVendors() {
     //VENDOR NAMES DATA
-    fetch('https://192.168.0.106:8080/food/vendors')
+    fetch('http://localhost:8080/food/vendors')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({vendors: responseJson.vendors});
@@ -24,8 +24,8 @@ export default class App extends React.Component {
         console.error(error);
       });
   }
-  
-  getVendorNames() {
+
+  getVendorNames(vendors) {
     return this.state.vendors.map((vendor) => vendor.vendorName);
   }
 
