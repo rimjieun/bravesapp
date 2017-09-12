@@ -9,6 +9,9 @@ mongoose.Promise = global.Promise;
   
 const User = require('./../models/user');
 const Vendor = require("../models/vendor");
+const bodyParser = require('body-parser');
+foodRouter.use(bodyParser.urlencoded({extended: true}));
+foodRouter.use(bodyParser.json());
 
 //==================================GET Routes==============================================
 // User gets restaurant list
@@ -39,6 +42,9 @@ foodRouter.get("/location/:number", function (connectionError, req, res, next ) 
       "message": "connection failed."
     });
   }
+
+// TODO do authentication for vendor
+
   let locationNumber = req.params.number;
   return Vendor.find({
     "vendorName": req.body.vendorName
@@ -68,6 +74,76 @@ foodRouter.get("/location/:number", function (connectionError, req, res, next ) 
 
 //==================================POST Routes=============================================
 
+// foodRouter.post('/wolf', (req, res) => {
+//     console.log(req.body);
+//     User.create(req.body)
+//         .then ( (wolf) => {
+//             console.log(wolf);
+//             return res.status(200).json(wolf);
+//         })
+//         .catch( err => {
+//             console.log(err);
+//             return res.status(400).json(err);
+        
+//         });
+// });
+
+// foodRouter.get('/wolfie', (req, res) => {
+//     User.find()
+//     .then ( (user) => {
+//         console.log(user);
+//         user[0].locationFinder();
+//         console.log(user[0]);
+        
+
+//     })
+//     .catch(err => console.log(err));
+// });
+
+// foodRouter.put('/get', (req, res) => {
+//     console.log('this route is working too!');
+
+//     return User.findByIdAndUpdate({"_id":"59b779a9734d1d53ff3a743a"})
+//     .then( (user) => {
+//         console.log('this is then');
+//         console.log(user, 'THIS IS THE USER!!');
+
+//         user.role = "vendor";
+//         delete user.password;
+//         console.log('changed user', user);
+//         return user.save()
+//         .then ((_user) => {
+//             console.log(_user, '_user');
+//             return res.status(200).json(user);
+//         })
+//         .catch( (err) => {
+//             console.log(err, 'error inside the save!');
+//         });
+
+//     })
+//     .catch( (err) => {
+//         console.log(err, 'error');
+//         return res.status(400).json({error:"error"});
+//     })
+
+// });
+
+// foodRouter.post('/test', (req, res) => {
+//     console.log('This route is working');
+//     console.log(req.body, 'req.body');
+//     return User.create(req.body)
+//         .then( (user) => {
+//             console.log('users', user);
+//             return res.status(200).send('a ok');
+//         })
+//         .catch( (err) => {
+//             console.log('error', err);
+//             return res.status(400).json({message: 'error'});
+//         });
+
+
+// });
+
 
 // User POSTS Order
 foodRouter.post('/user/order', function (connectionError, req, res, next) {
@@ -77,6 +153,11 @@ foodRouter.post('/user/order', function (connectionError, req, res, next) {
     });
   } 
 
+  req.user.username;
+  req.user.password;
+  req.user.role;
+
+    // TODO verify req authentication for user req.user....
     // Verify that the user has provided the necessary information
 
   const missingFields = [];
@@ -107,13 +188,14 @@ foodRouter.post('/user/order', function (connectionError, req, res, next) {
     .then( (user) => {
         // assign the user the right location using the internal method:
         user.locationFinder();
+        var locationNumber = user.currentOrder.locationNumber;
         _user = user;
-        
+        return Vendor.find()
     })
     .catch( (err) => {
         console.log('Internal server error: User not found', err);
         return res.status(500).json({error: 'Internal server Error: User not found'});
-    })
+    });
 
 
 

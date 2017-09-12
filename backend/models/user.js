@@ -3,8 +3,8 @@ const bcrypt = require('bcryptjs');
 
 const productSchema = require('./products');
 
-const userValidation = [/^\w{4,}$/, 'Username must contain only alphanumberic characters'];
-const roleValidation = [/(?=^vendor$)|(?=^customer$)/, 'Role must be a teacher or a student'];
+// const userValidation = [/^\w{4,}$/, 'Username must contain only alphanumeric characters'];
+const roleValidation = [/(?=^vendor$)|(?=^customer$)/, 'Role must be a vendor or a customer'];
 const vendorValidation = [/(?=^The Slice$)|(?=^1871 Grille$)/, 'Vendor must be The Slice or 1871 Grille'];
 
 mongoose.Promise = global.Promise;
@@ -14,12 +14,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 4,
-    match: userValidation,
+    // match: userValidation,
     trim: true
   },
   password: {
     type: String,
-    minlength: 8,
     trim: true
   },
   firstName: {
@@ -52,15 +51,13 @@ const userSchema = new mongoose.Schema({
     vendorName: {
       type: String,
       match: vendorValidation,
-      required: true
     },
     order: {
       type: [productSchema],
-      required: true
     },
     orderNumber: {
       type: String,
-      default: this.stringGenerator(20)
+      // default: this.stringGenerator(20)
     },
     orderTaken: {
       type: Date,
@@ -83,10 +80,17 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre('save', function (next) {
+  console.log('this is PRE SAVE');
+  console.log(Boolean(this.password), 'inside PRE SAVE BOOLEAN');
+  console.log(this.role, 'this.role');
+  console.log(this, 'req.body in pre');
+  if (this.role === 'vendor' && !(this.currentOrder.vendorName)) {
+    console.log('this line runs');
 
-  if (this.role === 'vendor' && !this.password) {
-    return next(new Error('The password is required when the role is vendor'));
-  }
+    return next(new Error('The vendorName is required when the role is vendor'));
+  } next()
+
+  
 });
 
 
@@ -221,7 +225,7 @@ userSchema.methods.showUser = function () {
   };
 };
 
-userSchema.statics.hashPassword = function (password) {
+userSchema.methods.hashPassword = function (password) {
   return bcrypt.hash(password, 10);
 };
 

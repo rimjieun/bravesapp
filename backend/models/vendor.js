@@ -21,9 +21,9 @@ const orderSchema = new mongoose.Schema({
     lastName: {
       type: String
     },
-    email: {
+    userName: {
       type: String
-    }
+    },
   },
   orderNumber: {
     type: String
@@ -53,7 +53,9 @@ const locationSchema = new mongoose.Schema({
 });
 
 const vendorSchema = new mongoose.Schema ({ 
-
+  imgURL: {
+    type: String
+  },
   vendorName: {
     type: String,
     required: true
@@ -72,7 +74,10 @@ const vendorSchema = new mongoose.Schema ({
   
 
 });
-
+//
+// 1. GET request to get the entire Vendor object, with locations including all orders
+// 2. POST a single ORDER at a time
+// 3. GET specific location orders
 
 vendorSchema.methods.calculateTotal = function (locationNumber) {
 
