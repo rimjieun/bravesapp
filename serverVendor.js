@@ -4,7 +4,7 @@ const express = require("express"),
       path = require("path"),
       mongoose = require("mongoose"),
       passport = require("passport"),
-      flash = require("connect-flash"),
+      // flash = require("connect-flash"),
       session = require("express-session"),
       cookieParser = require("cookie-parser");
 
@@ -16,15 +16,21 @@ const app = express(),
 // Enable env variables
 require('dotenv').config();
 
+require("./vendors/passport")(passport);
 
 app.use(morgan("dev"));
-app.use(cookieParser);
-app.use(bodyParser);
+app.use(cookieParser());
+app.use(bodyParser());
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json()); // parse application/json
+
+
 
 app.use(session({secret: "wewinthishackerthons"}));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash());
+
+require("./vendors/routes/routes")(app, path, passport);
 
 
 const dbConnection = ( dbUrl = process.env.DB_URL) => {
@@ -35,7 +41,7 @@ const dbConnection = ( dbUrl = process.env.DB_URL) => {
         .catch(err => console.log(err));
 };
 
-require("./vendors/routes/routes")(app, path, passport);
+
 
 let server;
 

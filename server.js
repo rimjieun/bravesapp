@@ -46,8 +46,6 @@ const runServer = (port=process.env.PORT) => {
     }));
   
   });
-  // .then(() => {console.log('this happened')})
-  // .catch((err) => { console.log('this had an error')})
 
 };
 

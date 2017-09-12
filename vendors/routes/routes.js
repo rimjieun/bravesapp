@@ -1,6 +1,11 @@
 
-module.exports = (app, path) => {
+module.exports = (app, path, passport) => {
 
+    app.get("/", (req, res) => {
+
+        res.sendFile(path.join(__dirname, "/../views/login.html"));
+
+    });
 
     app.get("/signup", (req, res) => {
 
@@ -8,11 +13,6 @@ module.exports = (app, path) => {
 
     });
 
-    app.get("/", (req, res) => {
-
-        res.sendFile(path.join(__dirname, "/../views/login.html"));
-
-    });
 
     app.get("/dashboard", (req, res) => {
 
@@ -30,4 +30,24 @@ module.exports = (app, path) => {
         res.json(data);
 
     });
+
+    app.get("/logout", function (req, res) {
+
+        req.logout();
+
+        res.redirect("/")
+    });
+
+    app.post("/signup", passport.authenticate("local-signup", {
+        failRedirect:"/signup"
+    }), function (req, res) {
+        res.redirect("/dashboard")
+    });
+
+    app.post("/login", passport.authenticate("local-login", {
+        failRedirect:"/"
+    }), function (req, res) {
+        res.redirect("/dashboard")
+    });
+
 };
