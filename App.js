@@ -15,7 +15,7 @@ export default class App extends React.Component {
 
   getAllVendors() {
     //VENDOR NAMES DATA
-    fetch('http://192.168.0.106:8080/food/vendors')
+    fetch('https://192.168.0.106:8080/food/vendors')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({vendors: responseJson.vendors});

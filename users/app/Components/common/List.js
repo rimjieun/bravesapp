@@ -3,29 +3,37 @@ import { StyleSheet, View, Text, Image, FlatList, Alert, TouchableOpacity } from
 
 export default class List extends React.Component {
 
-  createVendorItem(item) {
-    return (
-      <Image style={styles.thumbnail} source={require('./../../assets/img/pizza.png')} />
-      <Text style={styles.vendorText}>{item}</Text>
-    );
-  }
+  // createVendorItem(item) {
+  //   return (
+  //     <View style={styles.item}>
+  //       <Image style={styles.thumbnail} source={require('./../../assets/img/pizza.png')} />
+  //       <Text style={styles.vendorText}>{item}</Text>
+  //     </View>
+  //   );
+  // }
 
-  createMenuItem(item) {
-    return (
-      <Text style={styles.menuName}>{item.name}</Text>
-      <Text style={styles.menuPrice}>{item.price}</Text>
-    );
-  }
+  // createMenuItem(item) {
+  //   return (
+  //     <View style={styles.item}>
+  //       <Text style={styles.menuName}>{item.name}</Text>
+  //       <Text style={styles.menuPrice}>{item.price}</Text>
+  //     </View>
+  //   );
+  // }
 
-  selectComponentItems(component, item) {
-    if (component === 'concessions') {
-      this.createVendorItem(item);
-    } else if (component === 'menu') {
-      this.createMenuItem(item);
-    }
-  }
+  // selectComponentItems(component, item) {
+  //   if (component === 'concessions') {
+  //     return this.createVendorItem(item);
+  //   } else if (component === 'menu') {
+  //     return this.createMenuItem(item);
+  //   }
+  // }
+
+  // {this.selectComponentItems(this.props.component, item)}
 
   render() {
+
+    console.log('test: ' + this.props.list);
 
     return (
       <View style={styles.list}>
@@ -35,7 +43,8 @@ export default class List extends React.Component {
           renderItem={({item}) => 
             <TouchableOpacity onPress={() => {Alert.alert(`Go to '${item}' menu`)}}>
               <View style={styles.item}>
-                {this.selectComponentItems(this.props.component, item)}
+                <Image style={styles.thumbnail} source={require('./../../assets/img/pizza.png')} />
+                <Text style={styles.vendorText}>{item}</Text>
               </View>
             </TouchableOpacity>
           }
