@@ -2,7 +2,12 @@
 const express = require('express'),
       mongoose = require('mongoose'),
       morgan = require('morgan'),
-      path = require("path");
+      path = require("path"),
+      passport = require("passport"),
+      bodyParser = require("body-parser"),
+      // flash = require("connect-flash"),
+      session = require("express-session"),
+      cookieParser = require("cookie-parser");
 
 // Set mongoose promises to global promises (mongoose promises are deprecated)
 mongoose.Promise = global.Promise;
@@ -13,14 +18,25 @@ require('dotenv').config();
 // Initialize server
 const app = express();
 
+require("./vendors/passport")(passport);
+
 // Logging
 app.use(morgan('combined'));
+app.use(cookieParser());
+app.use(bodyParser());
 
 const Vendor = require('./backend/models/vendor');
 const mock = require('./backend/models/vendor_mock');
 const foodRouter = require('./backend/routes/food_routes');
 
+app.use(session({secret: "wewinthishackerthons"}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/food', foodRouter);
+require("./vendors/routes/routes")(app, path, passport);
+
+
 
 const dbConnection = (dbUrl=process.env.DB_URL) => {
   return mongoose.connect(dbUrl)
@@ -41,12 +57,10 @@ const runServer = (port=process.env.PORT) => {
     resolve(server = app.listen(port, () => {
       console.log(`The server is running on port ${port}`)
       ;
-      // console.log(mock);
-      
+
     }));
   
   });
-
 };
 
 if (require.main === module ) {
