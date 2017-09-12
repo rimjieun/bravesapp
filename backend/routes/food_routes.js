@@ -51,3 +51,17 @@ foodRouter.get("/location/:number", function(req, res, connectionError){
 });
 
 module.exports = foodRouter;
+
+
+
+
+
+//JIEUN TESTING VENDOR MOCK DATA**********************************************************
+//*******************************************************************************************
+const vendors = require('../models/vendor_mock.js');
+
+foodRouter.get("/vendors", function(req, res){
+   res.status(200).json(vendors);
+});
+//*******************************************************************************************
+//*******************************************************************************************

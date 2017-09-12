@@ -13,42 +13,31 @@ export default class App extends React.Component {
   }
 
   getVendors() {
-    axios({
-      method: 'get',
-      url: 'https://jsonplaceholder.typicode.com/todos'
-    }).then(data => {
-      console.log(data);
-      // this.setState({vendors: data}, function() {
-      //     console.log(this.state);
-      // });
-    }).catch(err => {
-      console.log('error');
-    });
+
+    fetch('http://192.168.0.106:8080/food/vendors')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        let vendors = [];
+        responseJson.vendors.forEach((vendor) => {
+          let vendorName = vendor.vendorName;
+          vendors.push(vendorName);
+          this.setState({vendors: vendors});
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
   
-
   componentWillMount() {
-    this.getVendors();
-  }
-
-  componentDidMount() {
     this.getVendors();
   }
 
   render() {
     return (
-      <View style={styles.container}>
-        <Concessions />
+      <View style={{flex: 1}}>
+        <Concessions vendors={this.state.vendors} />
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

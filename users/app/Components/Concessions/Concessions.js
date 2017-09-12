@@ -9,12 +9,14 @@ export default class Concessions extends Component {
   render() {
 
     const title = 'C O N C E S S I O N S';
+    const bannerURI = './../../assets/img/food.png';
+    const vendors = this.props.vendors;
 
     return (
-      <View> 
+      <View style={{flex: 1}}> 
         <Header title={title} />
-        <Banner />
-        <List />
+        <Banner bannerURI={bannerURI} />
+        <List list={vendors} />
       </View>
     );
   }
