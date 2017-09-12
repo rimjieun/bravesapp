@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 export default class App extends React.Component {
 
   onPressLearnMore() {
-    console.log("Hello World!!");
+    console.log("Back in Business World!!");
   }
   render() {
     return (
