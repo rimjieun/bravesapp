@@ -40,7 +40,9 @@ module.exports = (passport) => {
                     const newVendor = new Vendor();
 
                     newVendor.local.email = email;
+                    newVendor.local.username = req.body.username;
                     newVendor.local.password = newVendor.generateHash(password);
+
 
                     newVendor.save((err) => {
                         if(err)

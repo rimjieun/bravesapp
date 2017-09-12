@@ -24,6 +24,8 @@ module.exports = (app, path, passport) => {
 
 
     app.get("/dashboard", isLoggedIn, (req, res) => {
+        console.log(req.user.local.email);
+        console.log(req.user.local.password);
 
         res.sendFile(path.join(__dirname, "/../views/dashboard.html"));
 
@@ -50,6 +52,7 @@ module.exports = (app, path, passport) => {
     app.post("/signup", passport.authenticate("local-signup", {
         failRedirect:"/signup"
     }), function (req, res) {
+
         res.redirect("/dashboard")
     });
 

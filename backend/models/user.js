@@ -71,6 +71,8 @@ const userSchema = new mongoose.Schema({
 
 });
 
+
+
 userSchema.pre('save', function(next) {
 
   if (this.role === 'vendor' && !this.password) {
