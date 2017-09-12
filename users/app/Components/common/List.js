@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, FlatList, Alert, TouchableOpacity, Dimensions, Picker } from 'react-native';
-
+import { StackNavigator } from 'react-navigation';
 
 var width = Dimensions.get('window').width; 
 
@@ -31,6 +31,13 @@ export default class List extends React.Component {
   }
 
   render() {
+
+    // const { navigate } = this.props.navigation;
+    if (this.props.navigation) {
+      console.log('nav prop exists');
+    } else {
+      console.log('nav prop does not exist');
+    }
 
     return (
       <View style={styles.list}>
