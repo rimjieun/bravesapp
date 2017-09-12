@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, FlatList, Alert, TouchableOpacity, Dimensions, Picker } from 'react-native';
 
+
 var width = Dimensions.get('window').width; 
 
 export default class List extends React.Component {
@@ -46,7 +47,8 @@ export default class List extends React.Component {
           renderItem={({item}) => 
             <TouchableOpacity onPress={() => {
               if (this.props.component === 'concessions') {
-                Alert.alert(`Go to '${item}' menu`)
+                // Alert.alert(`Go to '${item}' menu`);
+                navigate('Menu')
               } 
             }}>
               <View style={styles.item}>

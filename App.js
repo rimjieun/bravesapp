@@ -1,6 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import ListComponent from './users/app/Components/ListComponent/ListComponent';
+import Concessions from './users/app/Components/Concessions/Concessions';
+import Menu from './users/app/Components/Menu/Menu';
+
+
 
 export default class App extends React.Component {
 
@@ -15,7 +18,7 @@ export default class App extends React.Component {
     //Fetch call:
     //Use either 'http://localhost:8080/food/vendors'
     //or 'http://<your IPv4 address>:8080/food/vendors'
-    fetch('')
+    fetch('http://192.168.0.104:8080/food/vendors')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({vendors: responseJson.vendors});
@@ -26,7 +29,7 @@ export default class App extends React.Component {
       });
   }
 
-  getVendorNames(vendors) {
+  getVendorNames() {
     return this.state.vendors.map((vendor) => vendor.vendorName);
   }
 
@@ -46,7 +49,7 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <ListComponent component='concessions' list={this.getVendorNames()} />
+        <Concessions list={this.getVendorNames()} />
       </View>
     );
   }
