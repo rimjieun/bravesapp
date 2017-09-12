@@ -22,13 +22,13 @@ const userSchema = new mongoose.Schema({
     minlength: 8,
     trim: true
   },
-  first_name: {
+  firstName: {
     type: String,
     minlength: 2,
     required: true,
     trim: true
   },
-  last_name: {
+  lastName: {
     type: String,
     minlength: 2,
     required: true,
@@ -47,19 +47,16 @@ const userSchema = new mongoose.Schema({
     required: true
   },
 
-  vendorName: {
-    type: String,
-    required: true
-
-  },
 
   currentOrder: {
     vendorName: {
       type: String,
-      match: vendorValidation
+      match: vendorValidation,
+      required: true
     },
     order: {
-      type: [productSchema]
+      type: [productSchema],
+      required: true
     },
     orderNumber: {
       type: String,
@@ -78,6 +75,7 @@ const userSchema = new mongoose.Schema({
     },
     locationNumber: {
       type: Number
+
     }
   },
 
