@@ -35,7 +35,7 @@ export default class List extends React.Component {
           renderItem={({item}) => 
             <TouchableOpacity onPress={() => {Alert.alert(`Go to '${item}' menu`)}}>
               <View style={styles.item}>
-                {this.selectComponentItems(this.props.component)}
+                {this.selectComponentItems(this.props.component, item)}
               </View>
             </TouchableOpacity>
           }
