@@ -5,7 +5,7 @@ const productSchema = require('./products');
 
 const userValidation = [/^\w{4,}$/, 'Username must contain only alphanumberic characters'];
 const roleValidation = [/(?=^vendor$)|(?=^customer$)/, 'Role must be a teacher or a student'];
-const vendorValidation = [/(?=^The Slice$)|(?=^1871 Grille$)/, 'Vendor must be The Slice or 1871 Grille']
+const vendorValidation = [/(?=^The Slice$)|(?=^1871 Grille$)/, 'Vendor must be The Slice or 1871 Grille'];
 
 mongoose.Promise = global.Promise;
 
@@ -148,61 +148,50 @@ userSchema.methods.locationFinder = function () {
   } else if (vendorName === "1871 Grille") {
 
     for (let i = 0; i < grilleRangeArray.length; i++) {
-      if (locationNumber) {
+
+      if (userSection >= grilleRangeArray[i][0] && userSection <= grilleRangeArray[i][1]) {
+        this.currentOrder.locationNumber = grilleRangeArray[i][2];
         return;
-      } else {
-        if (userSection >= grilleRangeArray[i][0] && userSection <= grilleRangeArray[i][1])) {
-        locationNumber = grilleRangeArray[i][2];
+      
       }
     }
-  }
 
-  if (locationNumber) {
-    return;
-  } else {
+
     for (let j = 0; j < grilleSingleArray.length; j++) {
-      if (locationNumber) {
+      
+      if (userSection === grilleSingleArray[j][0]) {
+        this.currentOrder.locationNumber = grilleSingleArray[j][1];
         return;
-      } else {
-        if (userSection === grilleSingleArray[j][0]) {
-          locationNumber = grilleSingleArray[j][1]
-        }
       }
+      
+    
+
     }
 
-  }
+  } else if (vendorName === "The Slice") {
 
-} else if (vendorName === "The Slice") {
+    for (let k = 0; k < theSlicerangeArray.length; k++) {
 
-  for (let k = 0; k < theSlicerangeArray.length; k++) {
-    if (locationNumber) {
-      return;
-    } else {
-      if (userSection >= theSlicerangeArray[k][0] && userSection <= theSlicerangeArray[k][1])) {
-      locationNumber = theSlicerangeArray[k][2];
+      if (userSection >= theSlicerangeArray[k][0] && userSection <= theSlicerangeArray[k][1]) {
+        this.currentOrder.locationNumber = theSlicerangeArray[k][2];
+        return;
+      }
+    
     }
-  }
-}
 
-if (locationNumber) {
-  return;
-} else {
-  for (let m = 0; m < theSliceSingleArray.length; m++) {
-    if (locationNumber) {
-      return;
-    } else {
+    for (let m = 0; m < theSliceSingleArray.length; m++) {
+    
       if (userSection === theSliceSingleArray[m][0]) {
-        locationNumber = theSliceSingleArray[m][1]
+        this.currentOrder.locationNumber = theSliceSingleArray[m][1];
+        return;
       }
+    
     }
+
+
+  } else {
+    this.sectionError = "The supplied section number was invalid.";
   }
-
-}
-
-
-} else {
-  this.sectionError = "The supplied section number was invalid."
-}
 
 };
 
@@ -223,6 +212,6 @@ userSchema.methods.validatePassword = function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-const User = mongoose.model('user', UserSchema);
+const User = mongoose.model('user', userSchema);
 
-module.exports = User
+module.exports = User;
