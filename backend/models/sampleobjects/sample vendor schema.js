@@ -1,5 +1,7 @@
 /* Vendor Schema 
 
+// This is NOT a user schema! This object holds all the restaurant info, the menu, the locations with nested arrays for current orders
+
 {
   imgURL: "",
   vendorName: "",

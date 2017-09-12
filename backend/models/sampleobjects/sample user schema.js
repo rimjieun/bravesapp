@@ -1,5 +1,9 @@
 /* User Schema 
 
+// holds two categories of users: customers and vendors
+// The vendor version holds the login info for vendors so they get the right location number ignore currentOrder object except for vendorName which is required here
+// The customer version holds the login info for customers along with their current order
+
 {
   username: "janie325",
   password: "53somerandom#pasword",
