@@ -1,8 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import ListComponent from './users/app/Components/ListComponent/ListComponent';
-// import Concessions from './users/app/Components/Concessions/Concessions';
-// import Menu from './users/app/Components/Menu/Menu';
 
 export default class App extends React.Component {
 
@@ -14,13 +12,16 @@ export default class App extends React.Component {
   }
 
   getAllVendors() {
-    //VENDOR NAMES DATA
-    fetch('http://localhost:8080/food/vendors')
+    //Fetch call:
+    //Use either 'http://localhost:8080/food/vendors'
+    //or 'http://<your IPv4 address>:8080/food/vendors'
+    fetch('')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({vendors: responseJson.vendors});
       })
       .catch((error) => {
+        console.log('goodbye')
         console.error(error);
       });
   }
@@ -50,7 +51,3 @@ export default class App extends React.Component {
     );
   }
 }
-
-
-
-// <Menu menuItems={this.state.data} />
