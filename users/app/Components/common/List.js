@@ -17,7 +17,7 @@ export default class List extends React.Component {
     );
   }
 
-  selectComponentItems(component) {
+  selectComponentItems(component, item) {
     if (component === 'concessions') {
       this.createVendorItem(item);
     } else if (component === 'menu') {
