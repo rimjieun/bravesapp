@@ -75,8 +75,10 @@ const vendorSchema = new mongoose.Schema ({
 
 
 vendorSchema.methods.calculateTotal = function (locationNumber) {
+
   
   this.locations.forEach( (location) => {
+
     
     if (locationNumber === location.locationNumber) {
       
