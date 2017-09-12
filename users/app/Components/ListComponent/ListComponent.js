@@ -10,23 +10,20 @@ export default class Concessions extends Component {
 
     let title;
     let bannerURI;
-    let list;
 
     if (this.props.component === 'concessions') {
       title = 'C O N C E S S I O N S';
       bannerURI = './../../assets/img/food.png';
-      list = this.props.vendors;
     } else if (this.props.component === 'menu') {
       title = 'M E N U';
       bannerURI = './../../assets/img/food.png';
-      list = this.prop.menu
     }
 
     return (
       <View style={{flex: 1}}> 
         <Header title={title} />
         <Banner bannerURI={bannerURI} />
-        <List list={list} />
+        <List component={this.props.component}  list={this.props.list} />
       </View>
     );
   }
