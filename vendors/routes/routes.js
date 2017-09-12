@@ -1,6 +1,15 @@
 
 module.exports = (app, path, passport) => {
 
+    const isLoggedIn = (req, res, next) => {
+        if(req.isAuthenticated()){
+            return next()
+        } else{
+            res.redirect("/");
+        }
+    };
+
+
     app.get("/", (req, res) => {
 
         res.sendFile(path.join(__dirname, "/../views/login.html"));
@@ -14,7 +23,7 @@ module.exports = (app, path, passport) => {
     });
 
 
-    app.get("/dashboard", (req, res) => {
+    app.get("/dashboard", isLoggedIn, (req, res) => {
 
         res.sendFile(path.join(__dirname, "/../views/dashboard.html"));
 
@@ -44,10 +53,14 @@ module.exports = (app, path, passport) => {
         res.redirect("/dashboard")
     });
 
+
     app.post("/login", passport.authenticate("local-login", {
         failRedirect:"/"
     }), function (req, res) {
         res.redirect("/dashboard")
     });
+
+
+
 
 };
