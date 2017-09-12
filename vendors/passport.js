@@ -1,6 +1,8 @@
 const LocalStrategy =  require("passport-local").Strategy;
+const mongoose = require('mongoose');
+const User = require("../backend/models/user");
 
-const Vendor = require("./modals/vendor");
+mongoose.Promise = global.Promise;
 
 module.exports = (passport) => {
 
@@ -12,7 +14,7 @@ module.exports = (passport) => {
 
     passport.deserializeUser((id, done) => {
 
-        Vendor.findById(id, (err, user) => {
+        User.findById(id, (err, user) => {
 
             done(err, user);
 
@@ -20,7 +22,7 @@ module.exports = (passport) => {
     });
 
     passport.use("local-signup", new LocalStrategy({
-        usernameField: "email",
+        usernameField: "username",
         passwordField: "password",
         passReqToCallback: true
     }, (req, email, password, done) => {
@@ -29,7 +31,7 @@ module.exports = (passport) => {
 
         process.nextTick(() => {
 
-            Vendor.findOne({"local.email": email}, (err, user) => {
+            User.findOne({"username": req.body.username}, (err, user) => {
                 if(err){
                     return done(err);
                 }
@@ -37,15 +39,31 @@ module.exports = (passport) => {
                 if(user){
                     return done(null, false, {message: "Email already registered"});
                 } else{
-                    const newVendor = new Vendor();
+                    const newUser = new User();
 
-                    newVendor.local.email = email;
-                    newVendor.local.password = newVendor.generateHash(password);
+                    newUser.username = req.body.username;
+                    newUser.currentOrder.vendorName = req.body.vendorName;
+                    newUser.role = "vendor";
+                    newUser.lastName = req.body.lastName;
+                    newUser.firstName = req.body.firstName;
+                    newUser.sectionNumber = 2;
+                    newUser.password = newUser.hashPassword(password);
 
-                    newVendor.save((err) => {
+
+                    console.log(newUser);
+
+                    // return User.create(newUser)
+                    //     .then((_user) => {
+                    //         console.log("__", _user);
+                    //     })
+                    //     .catch((err) => {
+                    //         console.log(err);
+                    //     });
+
+                    newUser.save((err) => {
                         if(err)
                             throw err;
-                        return done(null, newVendor);
+                        return done(null, newUser);
 
                     });
                 }
