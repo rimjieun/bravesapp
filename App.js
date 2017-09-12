@@ -18,7 +18,7 @@ export default class App extends React.Component {
     //Fetch call:
     //Use either 'http://localhost:8080/food/vendors'
     //or 'http://<your IPv4 address>:8080/food/vendors'
-    fetch('http://192.168.0.104:8080/food/vendors')
+    fetch('http://172.20.10.3:8080/food/vendors')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({vendors: responseJson.vendors});
