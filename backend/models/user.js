@@ -40,9 +40,12 @@ const userSchema = new mongoose.Schema({
   // for the user, their sectionnumber on their ticket
   // for the vendor, their location number
   sectionNumber: {
-    type: Number
+    type: Number,
+    required: true
   },
   vendorName: {
+    type: string,
+    required: true
 
   },
   currentOrder: {
@@ -50,7 +53,8 @@ const userSchema = new mongoose.Schema({
       type: [productSchema]
     },
     orderNumber: {
-      type: String
+      type: String,
+      default: this.stringGenerator(20)
     },
     orderTaken: {
       type: Date,
@@ -88,6 +92,20 @@ userSchema.methods.locationFinder = function
       this.order.locationNumber = 343
 
 }
+
+userSchema.methods.stringGenerator = function(length) {
+  var str = '';
+  var chars ='0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz'.split(
+      '');
+  var charsLen = chars.length;
+  if (!length) {
+    length = ~~(Math.random() * charsLen);
+  }
+  for (var i = 0; i < length; i++) {
+    str += chars[~~(Math.random() * charsLen)];
+  }
+  return str;
+};
 
 userSchema.methods.showUser = function () {
   return {
