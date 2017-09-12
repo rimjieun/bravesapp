@@ -31,7 +31,7 @@ foodRouter.get("/foodlist", function (req, res, connectionError) {
 });
 
 // Vendor gets orders for it's location
-foodRouter.get("/location/:number", function (req, res, connectionError) {
+foodRouter.get("/location/:number", function (connectionError, req, res, next ) {
     if (connectionError) {
         res.status(502).json({
             "message": "connection failed."
@@ -43,15 +43,15 @@ foodRouter.get("/location/:number", function (req, res, connectionError) {
         })
         .then(function (specificRestaurant) {
             let yourOrderList = [];
-            specificRestaurant.orders.locationOrders.forEach(function (item) {
-                if (item.locationNumber === locationNumber) {
-                    yourOrderList = item.locationOrders;
+            specificRestaurant.locations.forEach(function (location) {
+                if (location.locationNumber === locationNumber) {
+                    yourOrderList = location.locationOrders.slice();
                 } else {
                     console.log("This order was not found.");
                 }
 
             });
-            res.status(200).json(yourOrderList.slice());
+            res.status(200).json(yourOrderList);
 
         })
         .catch(function (catchLocationError) {
@@ -59,7 +59,7 @@ foodRouter.get("/location/:number", function (req, res, connectionError) {
             return res.status(500).json({
                 "message": "Internal error"
             });
-        })
+        });
 
 
 });

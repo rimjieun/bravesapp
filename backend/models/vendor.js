@@ -63,7 +63,7 @@ const vendorSchema = new mongoose.Schema ({
     type: [productSchema],
     required: true
   },
-  orders: {
+  locations: {
     type:[locationSchema] // 7 indexes top layer (each location)
   },
   completedOrders: {
