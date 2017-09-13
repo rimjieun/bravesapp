@@ -84,12 +84,40 @@ foodRouter.post('/user/order', function (connectionError, req, res, next) {
 
 
 //Vendor updates order status
-foodRouter.put("/completed", function(connectionError, req, res){
+foodRouter.put("/status", function(connectionError, req, res){
     if(connectionError){
         return res.status(502).json({
             "message": "connection failed."
         });
     }
+
+    return Vendor.find({
+        "locationOrders":req.body.locationOrders
+    }).then(function(listOfOrders){
+        for(let i = 0; i < listOfOrders.length; i++){
+            if(listOfOrders[i].orderNumber === req.body.orderNumber) {
+                let updateOrder = listOfOrders[i].orderNumber;
+                Vendor.findOneandUpdate({
+                    "orderNumber": updateOrder
+                }, function (updateError, order) {
+                    order.completed = req.body.completed;
+                }).then(function (/*updateStatus*/) {
+                    Vendor.save();
+
+                }).catch(function (searchOrderError) {
+                    console.log(searchOrderError);
+                    return res.status(500).json({"message": "Internal error"});
+                });
+                //close the db connection
+                break; //to exit the loop
+            }
+        }
+    }).catch(function(statusRouteError) {
+        console.log(statusRouteError);
+        return res.status(500).json({"message": "Internal error"});
+    });
+
+    // if this vendor's order.completed then notify user by changing user status ()
 
 });
 
