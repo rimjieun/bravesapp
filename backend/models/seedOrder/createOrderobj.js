@@ -1,4 +1,5 @@
 const faker = require('faker');
+const fs = require('fs');
 
 let productArray = () => {
 
@@ -59,4 +60,8 @@ let order = () => {
 
 
 
-order();
+const theorder = order();
+
+fs.appendFile('./backend/models/seedOrder/order.js', JSON.stringify(theorder, null, 2), () => {
+  console.log('File appended!');
+});
