@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, FlatList, Alert, TouchableOpacity, Dimensions, Picker } from 'react-native';
-
+import { Actions } from 'react-native-router-flux';
 
 var width = Dimensions.get('window').width; 
 
@@ -47,8 +47,8 @@ export default class List extends React.Component {
           renderItem={({item}) => 
             <TouchableOpacity onPress={() => {
               if (this.props.component === 'concessions') {
+                Actions.menu({vendor: item});
                 // Alert.alert(`Go to '${item}' menu`);
-                navigate('Menu')
               } 
             }}>
               <View style={styles.item}>

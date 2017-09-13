@@ -58,10 +58,21 @@ module.exports = foodRouter;
 
 //JIEUN TESTING VENDOR MOCK DATA**********************************************************
 //*******************************************************************************************
-const vendors = require('../models/vendor_mock.js');
+const mockData = require('../models/vendor_mock.js');
 
-foodRouter.get("/vendors", function(req, res){
-   res.status(200).json(vendors);
+foodRouter.get('/vendors', function(req, res){
+  let vendorNames = mockData.vendors.map((vendor) => vendor.vendorName);
+  res.status(200).json(vendorNames);
+});
+
+foodRouter.get('/:vendor/menu', function(req, res) {
+  var vendors = mockData.vendors;
+  for (var i in vendors) {
+    if (vendors[i].vendorName === req.params.vendor) {
+      res.status(200).json(vendors[i].menu);
+    }
+  }
+  res.status(200).json('Please enter a valid vendor.');
 });
 //*******************************************************************************************
 //*******************************************************************************************

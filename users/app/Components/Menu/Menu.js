@@ -6,8 +6,32 @@ import List from './../common/List';
 
 export default class Menu extends Component {
 
-  render() {
+  constructor() {
+    super();
+    this.state = {
+      menu: []
+    };
+  }
 
+  getMenu(vendor) {
+    //Fetch call:
+    //Use either 'http://localhost:8080/food/:vendor/menu'
+    //or 'http://<your IPv4 address>:8080/food/:vendor/menu'
+    fetch(`http://192.168.0.104:8080/food/${vendor}/menu`)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({menu: responseJson});
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  componentWillMount() {
+    this.getMenu(this.props.vendor);
+  }
+
+  render() {
     let title = 'M E N U';
     let bannerURI = './../../assets/img/food.png';
 
@@ -15,7 +39,7 @@ export default class Menu extends Component {
       <View style={{flex: 1}}>
         <Header title={title} />
         <Banner bannerURI={bannerURI} />
-        <List component='menu' list={this.props.list} />
+        <List component='menu' list={this.state.menu} />
       </View>
     );
   }
