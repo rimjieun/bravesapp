@@ -1,5 +1,6 @@
 
 module.exports = {
+
   vendors: 
   [
   {
@@ -196,4 +197,5 @@ menu: [
 
 }
   ]
+
 };

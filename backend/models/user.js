@@ -3,13 +3,16 @@ const bcrypt = require('bcryptjs');
 
 const productSchema = require('./products');
 
+
 // const userValidation = [/^\w{4,}$/, 'Username must contain only alphanumeric characters'];
 const roleValidation = [/(?=^vendor$)|(?=^customer$)/, 'Role must be a vendor or a customer'];
+
 const vendorValidation = [/(?=^The Slice$)|(?=^1871 Grille$)/, 'Vendor must be The Slice or 1871 Grille'];
 
 mongoose.Promise = global.Promise;
 
 const userSchema = new mongoose.Schema({
+
   username: {
     type: String,
     required: true,
@@ -57,23 +60,65 @@ const userSchema = new mongoose.Schema({
     },
     orderNumber: {
       type: String,
-    },
-    orderTaken: {
-      type: Date,
-      default: Date()
-    },
-    completed: {
-      type: Boolean,
-      default: false
-    },
-    comments: {
-      type: String
-    },
-    locationNumber: {
-      type: Number
 
-    }
+    },
+    firstName: {
+        type: String,
+        minlength: 2,
+        required: true,
+        trim: true
+    },
+    lastName: {
+        type: String,
+        minlength: 2,
+        required: true,
+        trim: true
+    },
+    role: {
+        type: String,
+        // match: roleValidation
+
+
+    },
+    // for the user, their sectionnumber on their ticket
+    // for the vendor, their location number
+    sectionNumber: {
+        type: Number,
+        required: true
+    },
+
+
+    currentOrder: {
+        vendorName: {
+            type: String,
+            // match: vendorValidation,
+        },
+        order: {
+            type: [productSchema],
+        },
+        orderNumber: {
+            type: String,
+            // default: this.methods.stringGenerator(20)
+        },
+        orderTaken: {
+            type: Date,
+            default: Date()
+        },
+        completed: {
+            type: Boolean,
+            default: false
+        },
+        comments: {
+            type: String
+        },
+        locationNumber: {
+            type: Number
+
+        }
+    },
+
   },
+
 
 
 });
@@ -92,12 +137,14 @@ userSchema.pre('save', function (next) {
   } next()
 
   
+
 });
 
 
 
 // assigns the user order to the right location
 userSchema.methods.locationFinder = function () {
+
   let userSection = this.sectionNumber;
   let locationNumber = this.currentOrder.locationNumber;
   let vendorName = this.currentOrder.vendorName;
@@ -242,6 +289,7 @@ userSchema.methods.hashPassword = function (password) {
 userSchema.methods.validatePassword = function (password) {
   return bcrypt.compare(password, this.password);
 };
+
 
 const User = mongoose.model('user', userSchema);
 
