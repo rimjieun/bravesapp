@@ -7,9 +7,9 @@ export default class Confirmation extends Component {
       <View style={styles.container}>
         <Image style={styles.logo} source={require('./../../assets/img/logo.png')} />
         <Text style={styles.successText}>
-          Order Success!
+          Order Success!{"\n"}
         </Text>
-        <Image source={require('./../../assets/img/6.png')} />
+        <Image source={require('./../../assets/img/red_check.png')} />
         <Text style={styles.labelText}>
           {"\n"}{"\n"}Confirmation Number{"\n"}
         </Text>
