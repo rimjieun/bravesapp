@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, Alert, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Button, Alert, Dimensions, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Header from './../common/Header';
 import Banner from './../common/Banner';
@@ -78,15 +78,11 @@ export default class Menu extends Component {
         <List component='menu' list={this.state.menu} updateOrder={this.updateOrder} />
         <View style={styles.footer}>
           <Text style={styles.totalText}>
-            Total:
+            T O T A L : ${this.state.orderTotal.toFixed(2)}
           </Text>
-          <Text style={styles.totalText}>
-            ${this.state.orderTotal.toFixed(2)}
-          </Text>
-          <Button style={styles.orderBtn} title='Order' onPress={(e) => {
-            e.preventDefault();
-            Actions.confirmation({});
-          }}/>
+          <TouchableOpacity style={styles.orderBtn} onPress={() => Actions.confirmation({})}>
+            <Text style={styles.orderText}>O R D E R</Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -97,12 +93,31 @@ const styles = StyleSheet.create({
   footer: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    backgroundColor: '#bfbfbf',
+    borderColor: '#D31245',
+    borderStyle: 'solid',
+    borderTopWidth: 2
   },
   totalText: {
-    fontSize: 30
+    flex: 1,
+    fontSize: 20,
+    color: '#00447C',
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    textAlign: 'center'
   },
   orderBtn: {
-    padding: 20
+    flex: 1,
+    backgroundColor: '#EEB111',
+    justifyContent: 'center',
+    borderColor: '#d79e0f',
+    borderStyle: 'solid',
+    borderLeftWidth: 1
+  },
+  orderText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#333333',
+    textAlign: 'center'
   }
 });

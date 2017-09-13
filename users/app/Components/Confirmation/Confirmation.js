@@ -59,7 +59,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     borderWidth: 1,
     borderColor: '#d9d9d9',
-    borderStyle: 'solid'
+    borderStyle: 'solid',
+    borderRadius: 5
   },
   subText: {
     color: '#f5f2f0',

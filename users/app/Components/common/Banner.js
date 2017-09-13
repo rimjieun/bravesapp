@@ -12,7 +12,7 @@ export default class Banner extends React.Component {
           onPress={() => {
             Actions.map({});
           }}>
-          <Image style={styles.mapIcon} source={require('./../../assets/img/map.png')} />
+          <Image style={styles.mapIcon} source={require('./../../assets/img/mapIcon.png')} />
         </TouchableOpacity>
       </View>  
     );
@@ -22,19 +22,27 @@ export default class Banner extends React.Component {
 const styles = StyleSheet.create({
   imageContainer: {
     flex: 5,
-    zIndex: 0
+    borderTopWidth: 2,
+    borderColor: '#D31245',
+    borderStyle: 'solid',
+    borderBottomWidth: 2
   },
   image: {
     flex: 1,
+    resizeMode: 'cover',
+    width: 400,
     position: 'relative'
   },
   mapContainer: {
     position: 'absolute',
     bottom: 15,
-    left: 15,
-    backgroundColor: '#006600',
+    right: 15,
+    backgroundColor: '#EEB111',
     padding: 15,
-    borderRadius: 50
+    borderRadius: 50,
+    borderColor: '#bf8c0d',
+    borderStyle: 'solid',
+    borderWidth: 1
   },
   mapIcon: {
     width: 35,

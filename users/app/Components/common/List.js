@@ -17,8 +17,8 @@ export default class List extends React.Component {
     if (component === 'concessions') {
       return (
         <View style={styles.vendorItem}>
-          <Image style={styles.thumbnail} source={require('./../../assets/img/pizza.png')} />
-          <Text style={styles.vendorText}>{item}</Text>
+          <Image style={styles.thumbnail} source={require('./../../assets/img/asdf.jpg')} />
+          <Text style={styles.vendorName}>{item.toUpperCase()}</Text>
         </View>
       );
     } else if (component === 'menu') {
@@ -45,16 +45,11 @@ export default class List extends React.Component {
     }
   }
 
-  // componentDidUpdate() {
-  //   console.log('input num: ', this.state.number);
-  // }
-
   render() {
 
     return (
       <View style={styles.list}>
         <FlatList
-          style={{width: width * 0.9}}
           data={this.props.list}
           keyExtractor={(item, index) => {
             if(this.props.component === 'concessions') {
@@ -82,20 +77,22 @@ const styles = StyleSheet.create({
   list: {
     flex: 8,
     backgroundColor: '#f5f2f0',
-    alignItems: 'center'
+    justifyContent: 'center'
   },
   vendorItem: {
     flex: 1,
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
     borderBottomColor: '#c4c2c2',
     borderBottomWidth: 1
   },
   menuItem: {
-    flex: 1,
+    width: width * 0.9,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    alignSelf: 'center',
     height: 50
   },
   thumbnail: {
@@ -103,8 +100,11 @@ const styles = StyleSheet.create({
     height: 90,
     margin: 15
   },
-  vendorText: {
-    fontSize: 28
+  vendorName: {
+    flex: 4,
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginLeft: 20
   },
   menuName: {
     fontSize: 15,
