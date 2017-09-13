@@ -16,26 +16,26 @@ foodRouter.use(bodyParser.json());
 //==================================GET Routes==============================================
 // User gets restaurant list
 
-foodRouter.get("/foodlist", function (connectionError, req, res, next) {
-  if (connectionError) {
-    res.json({
-      status: 502,
-      message: "connection failed"
-    });
-  }
-  return Vendor.find({})
-        .then(function (restaurants) {
-          res.status(200).json(restaurants: restaurants.map((restaurant) => {
-              return restaurant.userView()
-          }));
-        })
-        .catch(function (foodError) {
-          console.log(foodError); //do something
-          return res.status(500).json({
-            "message": "Internal error"
-          });
-        });
-});
+// foodRouter.get("/foodlist", function (connectionError, req, res, next) {
+//   if (connectionError) {
+//     res.json({
+//       status: 502,
+//       message: "connection failed"
+//     });
+//   }
+//   return Vendor.find({})
+//         .then(function (restaurants) {
+//           res.status(200).json({restaurants: restaurants.map((restaurant) => {
+//               return restaurant.userView()
+//           }));
+//         })
+//         .catch(function (foodError) {
+//           console.log(foodError); //do something
+//           return res.status(500).json({
+//             "message": "Internal error"
+//           });
+//         });
+// });
 
 
 
@@ -104,59 +104,61 @@ foodRouter.get("/location/:number", function (connectionError, req, res, next ) 
 
 //==================================POST Routes=============================================
 
-// foodRouter.post('/wolf', (req, res) => {
-//     console.log(req.body);
-//     User.create(req.body)
-//         .then ( (wolf) => {
-//             console.log(wolf);
-//             return res.status(200).json(wolf);
-//         })
-//         .catch( err => {
-//             console.log(err);
-//             return res.status(400).json(err);
+foodRouter.post('/wolf', (req, res) => {
+    console.log(req.body);
+    User.create(req.body)
+        .then ( (wolf) => {
+            console.log(wolf);
+            return res.status(200).json(wolf);
+        })
+        .catch( err => {
+            console.log(err);
+            return res.status(400).json(err);
         
-//         });
-// });
+        });
+});
 
-// foodRouter.get('/wolfie', (req, res) => {
-//     User.find()
-//     .then ( (user) => {
-//         console.log(user);
-//         user[0].locationFinder();
-//         console.log(user[0]);
+foodRouter.get('/wolfie', (req, res) => {
+    User.find()
+    .then ( (users) => {
+        console.log(users);
+        users[0].locationFinder();
+        console.log(users[0]);
+        return res.status(200).json({users});
         
 
-//     })
-//     .catch(err => console.log(err));
-// });
+    })
+    .catch(err => console.log(err));
+});
 
-// foodRouter.put('/get', (req, res) => {
-//     console.log('this route is working too!');
+foodRouter.put('/get', (req, res) => {
+    console.log('this route is working too!');
 
-//     return User.findByIdAndUpdate({"_id":"59b779a9734d1d53ff3a743a"})
-//     .then( (user) => {
-//         console.log('this is then');
-//         console.log(user, 'THIS IS THE USER!!');
+    return User.findByIdAndUpdate({"_id":"59b796b71f7309d084bb512a"})
+    .then( (user) => {
+        console.log('this is then');
+        console.log(user, 'THIS IS THE USER!!');
 
-//         user.role = "vendor";
-//         delete user.password;
-//         console.log('changed user', user);
-//         return user.save()
-//         .then ((_user) => {
-//             console.log(_user, '_user');
-//             return res.status(200).json(user);
-//         })
-//         .catch( (err) => {
-//             console.log(err, 'error inside the save!');
-//         });
+        user.role = "vendor";
+        user.firstName = "Esterling";
+        user.lastName = "Accime";
+        console.log('changed user', user);
+        return user.save()
+        .then ((_user) => {
+            console.log(_user, '_user');
+            return res.status(200).json(user);
+        })
+        .catch( (err) => {
+            console.log(err, 'error inside the save!');
+        });
 
-//     })
-//     .catch( (err) => {
-//         console.log(err, 'error');
-//         return res.status(400).json({error:"error"});
-//     })
+    })
+    .catch( (err) => {
+        console.log(err, 'error');
+        return res.status(400).json({error:"error"});
+    })
 
-// });
+});
 
 // foodRouter.post('/test', (req, res) => {
 //     console.log('This route is working');
