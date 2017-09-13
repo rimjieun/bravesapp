@@ -303,7 +303,29 @@ foodRouter.post('/user/order', function (connectionError, req, res, next) {
         console.log('Internal server error: User not found', err);
         return res.status(500).json({error: 'Internal server Error: User not found'});
     });
-
 });
 
 module.exports = foodRouter;
+
+
+//JIEUN TESTING VENDOR MOCK DATA**********************************************************
+//*******************************************************************************************
+const mockData = require('../models/vendor_mock.js');
+
+foodRouter.get('/vendors', function(req, res){
+  let vendorNames = mockData.vendors.map((vendor) => vendor.vendorName);
+  res.status(200).json(vendorNames);
+});
+
+foodRouter.get('/:vendor/menu', function(req, res) {
+  var vendors = mockData.vendors;
+  for (var i in vendors) {
+    if (vendors[i].vendorName === req.params.vendor) {
+      res.status(200).json(vendors[i].menu);
+    }
+  }
+  res.status(200).json('Please enter a valid vendor.');
+});
+
+//*****************************************************************************************
+//*****************************************************************************************
