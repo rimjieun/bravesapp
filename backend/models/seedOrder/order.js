@@ -37,3 +37,50 @@ module.exports = {
   "role": "customer",
   "sectionNumber": 354
 }
+{
+  "currentOrder": {
+    "order": [
+      {
+        "name": "Hamburger",
+        "price": "1.00",
+        "vendor": {
+          "vendorName": "The Slice"
+        },
+        "quantityOrdered": 0
+      },
+      {
+        "name": "Burgerizza",
+        "price": "1.00",
+        "vendor": {
+          "vendorName": "The Slice"
+        },
+        "quantityOrdered": 2
+      },
+      {
+        "name": "M&M's candy",
+        "price": "1.00",
+        "vendor": {
+          "vendorName": "1871 Grille"
+        },
+        "quantityOrdered": 2
+      },
+      {
+        "name": "Peanuts",
+        "price": "8.00",
+        "vendor": {
+          "vendorName": "The Slice"
+        },
+        "quantityOrdered": 2
+      }
+    ],
+    "vendorName": "The Slice"
+  },
+  "completed": false,
+  "comments": "Sint quae dolorem aliquam. Autem reprehenderit occaecati. Modi cupiditate adipisci tempora officia officiis. Repellat numquam laborum laudantium distinctio delectus aperiam velit.",
+  "firstName": "Afton",
+  "lastName": "McGlynn",
+  "userName": "Torrance.Gerlach54",
+  "password": "jVmAi5GHqVjqzRh",
+  "role": "vendor, customer",
+  "sectionNumber": 98
+}

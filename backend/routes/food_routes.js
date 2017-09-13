@@ -240,6 +240,7 @@ foodRouter.post('/user/order', function (req, res) {
       var locationNumber = user.currentOrder.locationNumber;
         
       console.log('THE USER HAS HAD THEIR LOCATION NUMBER ASSIGNED', user);
+      user.currentOrder.order = req.body.currentOrder.order.slice();
         
         // 1. If the passwords match, create the updated user object to be saved to the user DB and returned to the user (updating the order info on the front end), including the updated location value
         // 2. Grab the current order and push it to the end of the array the the specific location
@@ -265,7 +266,7 @@ foodRouter.post('/user/order', function (req, res) {
                                 // if the location numbers match, push the order to the end of the locationorders array
                               if (location.locationNumber === locationNumber) {
                                 console.log('LOCATION', location);
-                                  location.order.push(currentOrder);
+                                  location.locationOrders.push(currentOrder);
                                 }
                             });
 
