@@ -14,17 +14,19 @@ export default class Menu extends Component {
     this.state = {
       menu: [],
       order: [],
-      orderTotal: 0
+      orderTotal: 0,
+      sectionNumber: 0
     };
     this.updateOrder = this.updateOrder.bind(this);
     this.calculateOrderTotal = this.calculateOrderTotal.bind(this);
+    this.submitSectionNumber = this.submitSectionNumber.bind(this);
   }
 
   getMenu(vendor) {
     //Fetch call:
     //Use either 'http://localhost:8080/food/:vendor/menu'
     //or 'http://<your IPv4 address>:8080/food/:vendor/menu'
-    fetch(`http://192.168.0.104:8080/food/${vendor}/menu`)
+    fetch(`http://10.191.50.166:8080/food/${vendor}/menu`)
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({menu: responseJson});
@@ -62,9 +64,16 @@ export default class Menu extends Component {
     this.setState({orderTotal: orderTotal});
   }
 
+  submitSectionNumber(secNum) {
+    this.setState({sectionNumber: secNum});
+    console.log('in menu: ', secNum);
+  }
+
   componentWillMount() {
     this.getMenu(this.props.vendor);
   }
+
+ 
 
   render() {
 
@@ -78,9 +87,9 @@ export default class Menu extends Component {
         <List component='menu' list={this.state.menu} updateOrder={this.updateOrder} />
         <View style={styles.footer}>
           <Text style={styles.totalText}>
-            T O T A L : ${this.state.orderTotal.toFixed(2)}
+            ${this.state.orderTotal.toFixed(2)}
           </Text>
-          <TouchableOpacity style={styles.orderBtn} onPress={() => Actions.confirmation({})}>
+          <TouchableOpacity style={styles.orderBtn} onPress={() => Actions.payment({order: this.state.order, submitSecNum: this.submitSectionNumber})}>
             <Text style={styles.orderText}>O R D E R</Text>
           </TouchableOpacity>
         </View>

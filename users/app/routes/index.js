@@ -6,6 +6,7 @@ import Confirmation from './../Components/Confirmation/Confirmation';
 import ConcessionsMap from './../Components/Map/Map';
 import Login from './../Components/Login/Login';
 import Register from './../Components/Register/Register';
+import Payment from './../Components/Payment/Payment';
 
 export default (props) => (
     <Router>
@@ -16,6 +17,7 @@ export default (props) => (
       <Scene key='map' component={ConcessionsMap} hideNavBar />
       <Scene key='login' component={Login} initial hideNavBar />
       <Scene key='register' component={Register} hideNavBar />
+      <Scene key='payment' component={Payment} hideNavBar />
     </Scene>
   </Router>
 );
