@@ -25,9 +25,9 @@ foodRouter.get("/foodlist", function (connectionError, req, res, next) {
   }
   return Vendor.find({})
         .then(function (restaurants) {
-            res.status(200).json  ({restaurants: restaurants.map((restaurant) => {
-              return restaurant.userView()
-          })});
+          res.status(200).json  ({restaurants: restaurants.map((restaurant) => {
+              return restaurant.userView();
+            })});
         })
         .catch(function (foodError) {
           console.log(foodError); //do something
@@ -48,18 +48,18 @@ foodRouter.get("/vendor/:vendorname", (connectionError, req, res, next) => {
     //     return res.status(403).json({error: "Unauthorized"});
     // }
 
-    if (connectionError) {
-        return res.status(500).json({error: "Internal server error: connection error"})
+  if (connectionError) {
+      return res.status(500).json({error: "Internal server error: connection error"});
     }
 
-    return Vendor.findOne({vendorName: req.params.vendorName})
+  return Vendor.findOne({vendorName: req.params.vendorName})
         .then ((vendor) => {
-            return res.status(200).json(vendor);
+          return res.status(200).json(vendor);
 
         })
         .catch( (error) => {
-            console.log('Internal Server error: Vendor not found', error);
-            return res.status(404).json({error: "Internal server error: vendor not found."});
+          console.log('Internal Server error: Vendor not found', error);
+          return res.status(404).json({error: "Internal server error: vendor not found."});
         });
 
 });
@@ -103,80 +103,73 @@ foodRouter.get("/location/:number", function (connectionError, req, res, next ) 
 
 });
 
-
-//==================================POST Routes=============================================
-
-foodRouter.post('/wolf', (req, res) => {
-    console.log(req.body);
-    User.create(req.body)
-        .then ( (wolf) => {
-            console.log(wolf);
-            return res.status(200).json(wolf);
-        })
-        .catch( err => {
-            console.log(err);
-            return res.status(400).json(err);
-        
-        });
-});
-
-foodRouter.get('/wolfie', (req, res) => {
-    User.find()
+// get users
+foodRouter.get('/users', (req, res) => {
+  User.find()
     .then ( (users) => {
-        console.log(users);
-        users[0].locationFinder();
-        console.log(users[0]);
-        return res.status(200).json({users});
+      console.log(users);
+      users[0].locationFinder();
+      console.log(users[0]);
+      return res.status(200).json({users});
         
 
     })
     .catch(err => console.log(err));
 });
 
+
+//==================================POST Routes=============================================
+
+
+
+
 foodRouter.put('/get', (req, res) => {
-    console.log('this route is working too!');
+  console.log('this route is working too!');
 
-    return User.findByIdAndUpdate({"_id":"59b796b71f7309d084bb512a"})
+  return User.findByIdAndUpdate({"_id":"59b796b71f7309d084bb512a"})
     .then( (user) => {
-        console.log('this is then');
-        console.log(user, 'THIS IS THE USER!!');
+      console.log('this is then');
+      console.log(user, 'THIS IS THE USER!!');
 
-        user.role = "vendor";
-        user.firstName = "Esterling";
-        user.lastName = "Accime";
-        console.log('changed user', user);
-        return user.save()
+      user.role = "vendor";
+      user.firstName = "Esterling";
+      user.lastName = "Accime";
+      console.log('changed user', user);
+      return user.save()
         .then ((_user) => {
-            console.log(_user, '_user');
-            return res.status(200).json(user);
+          console.log(_user, '_user');
+          return res.status(200).json(user);
         })
         .catch( (err) => {
-            console.log(err, 'error inside the save!');
+          console.log(err, 'error inside the save!');
         });
 
     })
     .catch( (err) => {
-        console.log(err, 'error');
-        return res.status(400).json({error:"error"});
-    })
+      console.log(err, 'error');
+      return res.status(400).json({error:"error"});
+    });
 
 });
 
-// foodRouter.post('/test', (req, res) => {
-//     console.log('This route is working');
-//     console.log(req.body, 'req.body');
-//     return User.create(req.body)
-//         .then( (user) => {
-//             console.log('users', user);
-//             return res.status(200).send('a ok');
-//         })
-//         .catch( (err) => {
-//             console.log('error', err);
-//             return res.status(400).json({message: 'error'});
-//         });
+
+// Create a user
+
+foodRouter.post('/createuser', (req, res) => {
+  console.log('This route is working');
+  console.log(req.body, 'req.body');
+  return User.create(req.body)
+        .then( (user) => {
+          console.log('users', user);
+          return res.status(200).send('a ok');
+        })
+        .catch( (err) => {
+          console.log('error', err);
+          return res.status(400).json({message: 'error'});
+        });
 
 
-// });
+});
 
 
 // User POSTS Order
@@ -246,69 +239,69 @@ foodRouter.post('/user/order', function (connectionError, req, res, next) {
     .findOneAndUpdate({username: req.body.username, firstName:req.body.firstName, lastName: req.body.lastName})
     .then( (user) => {
         // assign the user the right location and generates an order number using the internal methods:
-        user.locationFinder();
-        user.orderNumberGenerator();
-        var locationNumber = user.currentOrder.locationNumber;
+      user.locationFinder();
+      user.orderNumberGenerator();
+      var locationNumber = user.currentOrder.locationNumber;
         
 
         
         // 1. If the passwords match, create the updated user object to be saved to the user DB and returned to the user (updating the order info on the front end), including the updated location value
         // 2. Grab the current order and push it to the end of the array the the specific location
-        if (user.password === req.body.password) {
-            let currentOrder = Object.assign( {}, user.currentOrder);
+      if (user.password === req.body.password) {
+          let currentOrder = Object.assign( {}, user.currentOrder);
             
             // grab the vendor name and location number to find the data in the vendor object
-            const {vendorName, locationNumber} = currentOrder;
+          const {vendorName, locationNumber} = currentOrder;
 
             //merge the user object and overwrite the req.body of the current order
-            _user = Object.assign( {}, user, req.body);
+          _user = Object.assign( {}, user, req.body);
             
             // save the user to the DB, then find the same order with the vendor, and save it there too
-            return _user.save()
+          return _user.save()
                 .then( (savedUser) => {
-                    console.log('The user has been saved!', savedUser);
+                  console.log('The user has been saved!', savedUser);
 
-                    return Vendor.findOneAndUpdate({vendorName})
+                  return Vendor.findOneAndUpdate({vendorName})
                         .then( (vendor) => {
-                            vendor.locations.forEach( (location) => {
+                          vendor.locations.forEach( (location) => {
                                 // if the location numbers match, push the order to the end of the locationorders array
-                                if (location.locationNumber === locationNumber) {
-                                    location.locationOrders.push(currentOrder);
+                              if (location.locationNumber === locationNumber) {
+                                  location.locationOrders.push(currentOrder);
                                 }
                             });
 
-                            return vendor.save()
+                          return vendor.save()
                                 .then( (saved_vendor) => {
-                                    console.log('The vendor saved successfully!', saved_vendor);
+                                  console.log('The vendor saved successfully!', saved_vendor);
                                     //Finally returning the updated user object to the user
-                                    return res.status(200).json(_user);
+                                  return res.status(200).json(_user);
 
                                 })
                                 .catch( (error) => {
-                                    console.log('There was an internal server error saving the vendor');
-                                    return res.status(500).json({error: 'Internal server error saving the vendor'});
-                                })
+                                  console.log('There was an internal server error saving the vendor');
+                                  return res.status(500).json({error: 'Internal server error saving the vendor'});
+                                });
 
                         })
                         .catch( error => {
-                            console.log('There was an error finding the vendor', error);
-                            return res.status(500).json({error: "Internal server error finding the vendor"});
+                          console.log('There was an error finding the vendor', error);
+                          return res.status(500).json({error: "Internal server error finding the vendor"});
                         });
 
                 })
                 .catch( (err) => {
-                    console.log('There was an error saving', err);
-                    return res.status(500).json({error: "Internal server error saving the user"});
+                  console.log('There was an error saving', err);
+                  return res.status(500).json({error: "Internal server error saving the user"});
                 });
 
-            }
+        }
 
-        console.log(_user);
+      console.log(_user);
 
     })
     .catch( (err) => {
-        console.log('Internal server error: User not found', err);
-        return res.status(500).json({error: 'Internal server Error: User not found'});
+      console.log('Internal server error: User not found', err);
+      return res.status(500).json({error: 'Internal server Error: User not found'});
     });
 
 
@@ -320,54 +313,54 @@ foodRouter.post('/user/order', function (connectionError, req, res, next) {
 //req.body.vendorName, locationNumber, orderNumber
 //Vendor updates order status
 foodRouter.put("/status", function(connectionError, req, res){
-    if(connectionError){
-        return res.status(502).json({
-            "message": "connection failed."
+  if(connectionError){
+      return res.status(502).json({
+          "message": "connection failed."
         });
     }
 
-    let _order; //access order within function
-    return Vendor
+  let _order; //access order within function
+  return Vendor
         .findOneAndUpdate
         ({"vendorName": req.body.vendorName})
 
         .then(function(vendor){
 
-            vendor.locations.forEach (function(location){
+          vendor.locations.forEach (function(location){
 
-                if(location.locationNumber === req.body.locationNumber){
+              if(location.locationNumber === req.body.locationNumber){
 
-                    location.locationOrders.forEach (function(order){
+                  location.locationOrders.forEach (function(order){
 
-                        if(order.orderNumber === req.body.orderNumber){
-                            order.completed = true;
-                            _order = Object.assign({}, order);
+                      if(order.orderNumber === req.body.orderNumber){
+                          order.completed = true;
+                          _order = Object.assign({}, order);
                             
                         } //pull user order
                     
-                    })
+                    });
                 }
                 
             });
 
             
-            return vendor.save()
+          return vendor.save();
 
         })
         
         .then(function (savedVendor) {
-            console.log(savedVendor, 'Vendor has been saved');
+          console.log(savedVendor, 'Vendor has been saved');
 
-            let {firstName, lastName, userName} = _order.customer;
+          let {firstName, lastName, userName} = _order.customer;
 
-            return User
+          return User
             .findOneAndUpdate({firstName, lastName, userName})
 
             .then( (user) => {
-                console.log( 'returned user', user);
-                user.currentOrder.completed = true;
+              console.log( 'returned user', user);
+              user.currentOrder.completed = true;
 
-                return user.save()
+              return user.save()
                 .then( (savedUser) => {
                   console.log('user saved!', savedUser);
                   return res.status(200).json({message: "The order has been updated successfully!", order: _order});  
@@ -377,14 +370,14 @@ foodRouter.put("/status", function(connectionError, req, res){
             })
 
                 .catch(function (searchOrderError) {
-                    console.log(searchOrderError);
-                    return res.status(500).json({"message": "Internal error"});
+                  console.log(searchOrderError);
+                  return res.status(500).json({"message": "Internal error"});
                 });
                 //close the db connection
-            })
+        })
             .catch(function(statusRouteError) {
-                console.log(statusRouteError);
-                return res.status(500).json({"message": "Internal error"});
+              console.log(statusRouteError);
+              return res.status(500).json({"message": "Internal error"});
             });
 
     // if this vendor's order.completed then notify user by changing user status ()
