@@ -9,60 +9,105 @@
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="../../dashboard.css">
+
 
 </head>
 <body>
-    <h4>Welcome Dear employer</h4>
-    <table class="striped">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Item Name</th>
-            <th>Item Price</th>
-        </tr>
-        </thead>
 
-        <tbody>
-        <tr>
-            <td>Alvin</td>
-            <td>Eclair</td>
-            <td>$0.87</td>
-        </tr>
-        <tr>
-            <td>Alan</td>
-            <td>Jellybean</td>
-            <td>$3.76</td>
-        </tr>
-        <tr>
-            <td>Jonathan</td>
-            <td>Lollipop</td>
-            <td>$7.00</td>
-        </tr>
-        </tbody>
-    </table>
+    <a href="/logout" class="waves-effect waves-light btn signout">Sign Out</a>
 
-    <ul class="collapsible popout" data-collapsible="accordion">
-        <li>
-            <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
-            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-        </li>
-        <li>
-            <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
-            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-        </li>
-        <li>
-            <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
-            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-        </li>
-    </ul>
+    <div class="row dashboard">
+        <h4>Current Orders</h4>
+        <table class="striped">
+            <thead>
+            <tr>
+                <th>Order Number</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Order Total</th>
+            </tr>
+            </thead>
 
-    <a href="/logout" class="waves-effect waves-light btn">Sign Out</a>
+            <tbody>
+            <tr>
+                <td>3</td>
+                <td>Hop</td>
+                <td>cywevyp</td>
+                <td>$0.87</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Shana</td>
+                <td>xitagoqezi</td>
+                <td>$0.87</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>Flynn</td>
+                <td>guhiro</td>
+                <td>$0.87</td>
+            </tr>
+
+            <tr>
+                <td>4</td>
+                <td>Winifred</td>
+                <td>fegobaro</td>
+                <td>$0.87</td>
+            </tr>
+
+            <tr>
+                <td>19</td>
+                <td>Emerson</td>
+                <td>racytuda</td>
+                <td>$0.87</td>
+            </tr>
+
+            <tr>
+                <td>9</td>
+                <td>Bert</td>
+                <td>dyjuwufetu</td>
+                <td>$0.87</td>
+            </tr>
+
+            <tr>
+                <td>1</td>
+                <td>Penelope</td>
+                <td>fulyx</td>
+                <td>$0.87</td>
+            </tr>
+
+
+            <tr>
+                <td>8</td>
+                <td>Ingrid</td>
+                <td>zisef</td>
+                <td>$0.87</td>
+            </tr>
+
+            <tr>
+                <td>12</td>
+                <td>rebynamevu</td>
+                <td>Mccall</td>
+                <td>$0.87</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+
+
+
 
     <script>
-        $(document).ready(function(){
-            $('.collapsible').collapsible();
-        });
 
+    $.ajax({
+        url:"/",
+        method:"GET"
+    })
+        .done()
+        .fail();
     </script>
 </body>
 </html>

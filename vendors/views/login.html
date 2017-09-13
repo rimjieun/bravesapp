@@ -9,20 +9,23 @@
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="../../login.css">
 
 </head>
 <body>
-    <h4>Vendor Sign in </h4>
 
-    <div class="row">
+
+    <div class="row login">
+        <h4>Vendor Sign in </h4>
+
         <form class="col s12" action="/login" method="POST">
             <div class="row">
-                <div class="input-field col s6">
+                <div class="input-field col s12">
                     <input placeholder="Email" id="email" type="text" class="validate" name="email">
                     <label for="email">Email</label>
                 </div>
 
-                <div class="input-field col s6">
+                <div class="input-field col s12">
                     <input id="password" type="text" class="validate" name="password">
                     <label for="password">Password</label>
                 </div>
@@ -32,9 +35,10 @@
             <button class="waves-effect waves-light btn">Login</button>
 
         </form>
-    </div>
 
-    <a href="/signup" class="waves-effect waves-light btn">Go to the Sign Up Page</a>
+
+        <a href="/signup" class="waves-effect waves-light sign-link">Go to the Sign Up Page</a>
+    </div>
 
 </body>
 </html>

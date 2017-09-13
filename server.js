@@ -17,6 +17,7 @@ require('dotenv').config();
 
 // Initialize server
 const app = express();
+app.use(express.static('public'));
 
 require("./vendors/passport")(passport);
 
