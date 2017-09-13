@@ -28,17 +28,7 @@ app.use(bodyParser());
 const Vendor = require('./backend/models/vendor');
 const User = require('./backend/models/user');
 const mock = require('./backend/models/vendor_mock');
-<<<<<<< HEAD
-const food_router = require('./backend/routes/food_routes');
-
-app.use("/food", food_router);
-=======
 const foodRouter = require('./backend/routes/food_routes');
-
-app.use(session({secret: "wewinthishackerthons"}));
-app.use(passport.initialize());
-app.use(passport.session());
->>>>>>> origin/development
 
 app.use('/food', foodRouter);
 require("./vendors/routes/routes")(app, path, passport);
@@ -49,13 +39,8 @@ const dbConnection = (dbUrl=process.env.DB_URL) => {
   return mongoose.connect(dbUrl, {useMongoClient: true})
     .then( () => {
       console.log('Mongoose connection to bravesDb active.');
-<<<<<<< HEAD
-      
-       
-=======
       return Vendor.find()
-       .then( (result) => console.log('now in the db:', result));
->>>>>>> origin/development
+       .then( (result) => console.log('now in the db:', JSON.stringify(result, null, 2) ));
     })
     .catch(err => console.log(err));
 };

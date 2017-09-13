@@ -25,9 +25,9 @@ foodRouter.get("/foodlist", function (connectionError, req, res, next) {
   }
   return Vendor.find({})
         .then(function (restaurants) {
-            res.status(200).json({restaurants: restaurants.map((restaurant) => {
+            res.status(200).json  ({restaurants: restaurants.map((restaurant) => {
               return restaurant.userView()
-          }));
+          })});
         })
         .catch(function (foodError) {
           console.log(foodError); //do something
