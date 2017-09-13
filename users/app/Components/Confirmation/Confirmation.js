@@ -28,12 +28,13 @@ export default class Confirmation extends Component {
   }
 
   onPressHome() {
-  Alert.alert('Go Bravos!');
- }
-
-   onPressMap() {
-   Alert.alert('Go Find the Restaurant!');
+    Alert.alert('Go Bravos!');
   }
+
+  onPressMap() {
+    Alert.alert('Go Find the Restaurant!');
+  }
+
   render() {
     let title = 'C O N F I R M A T I O N';
 
