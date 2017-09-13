@@ -4,19 +4,37 @@
     <meta charset="UTF-8">
     <title>Sign In </title>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
 </head>
 <body>
-    <h1>Please sign in</h1>
-    <form action="/login" method="POST">
-        <input type="email" id="email" name="email"> <br>
-        <input type="password" id="password" name="password"> <br>
+    <h4>Vendor Sign in </h4>
 
-        <button id="login">Login</button>
-    </form>
+    <div class="row">
+        <form class="col s12" action="/login" method="POST">
+            <div class="row">
+                <div class="input-field col s6">
+                    <input placeholder="Email" id="email" type="text" class="validate" name="email">
+                    <label for="email">Email</label>
+                </div>
 
-    <a href="/signup">
-        <button>Go to the Sign Up Page</button>
-</a>
+                <div class="input-field col s6">
+                    <input id="password" type="text" class="validate" name="password">
+                    <label for="password">Password</label>
+                </div>
+
+            </div>
+
+            <button class="waves-effect waves-light btn">Login</button>
+
+        </form>
+    </div>
+
+    <a href="/signup" class="waves-effect waves-light btn">Go to the Sign Up Page</a>
 
 </body>
 </html>

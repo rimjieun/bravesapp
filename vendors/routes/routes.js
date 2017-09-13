@@ -22,6 +22,20 @@ module.exports = (app, path, passport) => {
 
     });
 
+    app.post("/signup", passport.authenticate("local-signup", {
+        failRedirect:"/signup"
+    }), function (req, res) {
+
+        return res.redirect("/dashboard")
+    });
+
+
+    app.post("/login", passport.authenticate("local-login", {
+        failRedirect:"/"
+    }), function (req, res) {
+        res.redirect("/dashboard")
+    });
+
 
     app.get("/dashboard", isLoggedIn, (req, res) => {
         console.log(req.user.local.email);
@@ -47,20 +61,6 @@ module.exports = (app, path, passport) => {
         req.logout();
 
         res.redirect("/")
-    });
-
-    app.post("/signup", passport.authenticate("local-signup", {
-        failRedirect:"/signup"
-    }), function (req, res) {
-
-        res.redirect("/dashboard")
-    });
-
-
-    app.post("/login", passport.authenticate("local-login", {
-        failRedirect:"/"
-    }), function (req, res) {
-        res.redirect("/dashboard")
     });
 
 

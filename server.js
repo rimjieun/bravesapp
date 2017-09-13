@@ -26,22 +26,26 @@ app.use(cookieParser());
 app.use(bodyParser());
 
 const Vendor = require('./backend/models/vendor');
+const User = require('./backend/models/user');
 const mock = require('./backend/models/vendor_mock');
+
 const foodRouter = require('./backend/routes/food_routes');
 
 app.use(session({secret: "wewinthishackerthons"}));
 app.use(passport.initialize());
 app.use(passport.session());
 
+
 app.use('/food', foodRouter);
 require("./vendors/routes/routes")(app, path, passport);
 
 const dbConnection = (dbUrl=process.env.DB_URL) => {
-  return mongoose.connect(dbUrl)
+  return mongoose.connect(dbUrl, {useMongoClient: true})
     .then( () => {
       console.log('Mongoose connection to bravesDb active.');
       return Vendor.find()
        .then( (result) => console.log('now in the db:', result));
+
     })
     .catch(err => console.log(err));
 };
@@ -57,6 +61,25 @@ const runServer = (port=process.env.PORT) => {
   
   });
 };
+
+const closeServer = () => {
+  
+  return mongoose.disconnect()
+    .then( () => { 
+      console.log('mongoose disconnecting');
+      return new Promise( (resolve, reject) => {
+        console.log('Closing server');
+        server.close(err => {
+          if (err) {
+            reject(err);
+            return;
+          } 
+          resolve();
+        });
+      }); 
+    });
+  };
+
 
 if (require.main === module ) {
   runServer()
