@@ -19,15 +19,16 @@ export default class Concessions extends Component {
     return (
       <View style={styles.container}>
         <Image style={styles.logo} source={require('./../../assets/img/logo.png')} />
+        <Text style={styles.title}>C U S T O M E R   I N F O</Text>
         <View>
           <Text>{'\n'}</Text>
           <Text style={[styles.label, styles.center]}>Customer Name</Text>
-          <TextInput style={[styles.input, styles.bigBox, styles.textCenter]} defaultValue='Hello' underlineColorAndroid={'rgba(0,0,0,0)'} onChangeText={(text) => {
+          <TextInput style={[styles.input, styles.bigBox, styles.textCenter]} defaultValue='John Smith' underlineColorAndroid={'rgba(0,0,0,0)'} onChangeText={(text) => {
             this.setState({customerName: text});
           }} />
           <View style={styles.center}>
             <Text style={styles.label}>Section Number</Text>
-            <TextInput style={[styles.input, styles.smallBox, styles.center, styles.textCenter]} underlineColorAndroid={'rgba(0,0,0,0)'} onChangeText={(text) => {
+            <TextInput style={[styles.input, styles.smallBox, styles.center, styles.textCenter]} defaultValue='147' underlineColorAndroid={'rgba(0,0,0,0)'} onChangeText={(text) => {
               this.setState({sectionNumber: text});
             }} />
           </View>
@@ -35,7 +36,7 @@ export default class Concessions extends Component {
         <Text>{'\n'}</Text>
         <View>
           <Text style={styles.label}>Card Number</Text>
-          <TextInput style={[styles.input, styles.bixBox, {width: 280}]} underlineColorAndroid={'rgba(0,0,0,0)'} onChangeText={(text) => {
+          <TextInput style={[styles.input, styles.bixBox, {width: 280}]} defaultValue='XXXX-XXXX-XXXX-1234' underlineColorAndroid={'rgba(0,0,0,0)'} onChangeText={(text) => {
             this.setState({cardNumber: text});
           }} />
         </View>
@@ -43,17 +44,17 @@ export default class Concessions extends Component {
           <View>
           <Text style={styles.label}>Exp Date</Text>
           <View style={styles.expDate}>
-            <TextInput style={[styles.input, styles.tinyBox]} underlineColorAndroid={'rgba(0,0,0,0)'} onChangeText={(text) => {
+            <TextInput style={[styles.input, styles.tinyBox]} defaultValue='07' underlineColorAndroid={'rgba(0,0,0,0)'} onChangeText={(text) => {
               this.setState({expDateMonth: text});
             }} />
-            <TextInput style={[styles.input, styles.smallBox]} underlineColorAndroid={'rgba(0,0,0,0)'} onChangeText={(text) => {
+            <TextInput style={[styles.input, styles.smallBox]} defaultValue='2020' underlineColorAndroid={'rgba(0,0,0,0)'} onChangeText={(text) => {
               this.setState({expDateYear: text});
             }} />
           </View>
           </View>
           <View>
             <Text style={styles.label}>CVC</Text>
-            <TextInput style={[styles.input, styles.tinyBox]} underlineColorAndroid={'rgba(0,0,0,0)'} onChangeText={(text) => {
+            <TextInput style={[styles.input, styles.tinyBox]} defaultValue='123' underlineColorAndroid={'rgba(0,0,0,0)'} onChangeText={(text) => {
               this.setState({cvCode: text});
             }} />
           </View>
@@ -87,7 +88,9 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderWidth: 1,
     borderRadius: 3,
-    fontSize: 20
+    fontSize: 20,
+    paddingLeft: 10,
+    paddingRight: 10
   },
   bigBox: {
     width: 280
@@ -129,5 +132,11 @@ const styles = StyleSheet.create({
   },
   textCenter: {
     textAlign: 'center'
+  },
+  title: {
+    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'lightgray'
   }
 });
