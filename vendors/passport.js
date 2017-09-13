@@ -32,7 +32,7 @@ module.exports = (passport) => {
 
         process.nextTick(() => {
 
-            User.findOneAndUpdate({"email": email}, (err, user) => {
+            User.findOne({"local.email": email}, (err, user) => {
                 if(err){
                     return done(err);
                 }
@@ -41,17 +41,17 @@ module.exports = (passport) => {
                     return done(null, false, {message: "Email already registered"});
                 } else{
                     const newUser = new User();
-                    //newUser.username = req.body.username;
-                    newUser.email = email;
+                    newUser.username = req.body.username;
+                    newUser.local.email = email;
                     // newUser.currentOrder = {};
                     // newUser.currentOrder.firstName = req.body.firstName;
                     // newUser.currentOrder.lastName = req.body.lastName;
-                    //newUser.currentOrder.vendorName = "The Slice";
-                    // newUser.role = "vendor";
-                    // newUser.lastName = req.body.lastName;
-                    // newUser.firstName = req.body.firstName;
-                    // newUser.sectionNumber = 2;
-                    newUser.password = newUser.hashPassword(password);
+                    newUser.currentOrder.vendorName = "The Slice";
+                    newUser.role = "vendor";
+                    newUser.lastName = req.body.lastName;
+                    newUser.firstName = req.body.firstName;
+                    newUser.sectionNumber = 2;
+                    newUser.local.password = newUser.hashPassword(password);
 
                     console.log(newUser);
 
