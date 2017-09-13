@@ -212,8 +212,54 @@ foodRouter.post('/user/order', function (connectionError, req, res, next) {
         // 2. Grab the current order and push it to the end of the array the the specific location
         if (user.password === req.body.password) {
             let currentOrder = Object.assign( {}, user.currentOrder);
+            
+            // grab the vendor name and location number to find the data in the vendor object
+            const {vendorName, locationNumber} = currentOrder;
 
+            //merge the user object and overwrite the req.body of the current order
             _user = Object.assign( {}, user, req.body);
+            
+            // save the user to the DB, then find the same order with the vendor, and save it there too
+            return _user.save()
+                .then( (savedUser) => {
+                    console.log('The user has been saved!', savedUser);
+
+                    return Vendor.findOneAndUpdate({vendorName})
+                        .then( (vendor) => {
+                            vendor.locations.forEach( (location) => {
+                                // if the location numbers match, push the order to the end of the locationorders array
+                                if (location.locationNumber === locationNumber) {
+                                    location.locationOrders.push(currentOrder);
+                                }
+                            });
+
+                            return vendor.save()
+                                .then( (saved_vendor) => {
+                                    console.log('The vendor saved successfully!', saved_vendor);
+                                    //Finally returning the updated user object to the user
+                                    return res.status(200).json(_user);
+
+                                })
+                                .catch( (error) => {
+                                    console.log('There was an internal server error saving the vendor');
+                                    return res.status(500).json({error: 'Internal server error saving the vendor'});
+                                })
+
+                        })
+                        .catch( error => {
+                            console.log('There was an error finding the vendor', error);
+                            return res.status(500).json({error: "Internal server error finding the vendor"});
+                        });
+
+
+
+
+
+                })
+                .catch( (err) => {
+                    console.log('There was an error saving', err);
+                });
+
 
             
         }
