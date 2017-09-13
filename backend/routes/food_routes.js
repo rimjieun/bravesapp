@@ -83,6 +83,7 @@ foodRouter.post('/user/order', function (connectionError, req, res, next) {
 });
 
 
+//req.body.vendorName, locationNumber, orderNumber
 //Vendor updates order status
 foodRouter.put("/status", function(connectionError, req, res){
     if(connectionError){
@@ -91,17 +92,34 @@ foodRouter.put("/status", function(connectionError, req, res){
         });
     }
 
-    return Vendor.find({
-        "locationOrders":req.body.locationOrders
-    }).then(function(listOfOrders){
-        for(let i = 0; i < listOfOrders.length; i++){
-            if(listOfOrders[i].orderNumber === req.body.orderNumber) {
-                let updateOrder = listOfOrders[i].orderNumber;
-                Vendor.findOneandUpdate({
-                    "orderNumber": updateOrder
-                }, function (updateError, order) {
-                    order.completed = req.body.completed;
-                }).then(function (/*updateStatus*/) {
+    let _order; //access order within function
+    return Vendor
+        .findOneAndUpdate
+        ({"vendorName": req.body.vendorName})
+
+        .then(function(vendor){
+
+            let _vendor = vendor.locations.map (function(location){
+
+                if(location.locationNumber === req.body.locationNumber){
+
+                    location.locationOrders.map (function(order){
+
+                        if(order.orderNumber === req.body.orderNumber){
+                            order.completed = true;
+                            _order = Object.assign({}, order);
+                            return order;
+                        } //pull user order
+                        return order;
+                    })
+                }
+                return location;
+            });
+
+            let {firstName, lastName, userName} = order.customer;
+
+        }).then(function (updateStatus) {
+                    Vendor.update([updateStatus = req.body.completed;
                     Vendor.save();
 
                 }).catch(function (searchOrderError) {
@@ -109,7 +127,6 @@ foodRouter.put("/status", function(connectionError, req, res){
                     return res.status(500).json({"message": "Internal error"});
                 });
                 //close the db connection
-                break; //to exit the loop
             }
         }
     }).catch(function(statusRouteError) {
