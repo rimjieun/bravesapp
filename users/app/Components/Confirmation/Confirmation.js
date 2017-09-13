@@ -12,7 +12,7 @@ export default class Confirmation extends Component {
     };
   }
 
-  getConfirmation(vendor) {
+  getConfirmation(orderSchema) {
     // fetch(`http://localhost:8080/food/${vendor}/menu`)
     //   .then((response) => response.json())
     //   .then((responseJson) => {
@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
   },
   bold: {
     fontSize: 26,
+    fontWeight: 'bold',
     paddingTop: 8,
     paddingBottom: 8,
     color: "#D31245",
