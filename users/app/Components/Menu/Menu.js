@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, Alert, Dimensions } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import Header from './../common/Header';
 import Banner from './../common/Banner';
 import List from './../common/List';
 
-var width = Dimensions.get('window').width; 
+const width = Dimensions.get('window').width; 
 
 export default class Menu extends Component {
 
@@ -84,7 +85,7 @@ export default class Menu extends Component {
           </Text>
           <Button style={styles.orderBtn} title='Order' onPress={(e) => {
             e.preventDefault();
-            Alert.alert('Go to payment');
+            Actions.confirmation({});
           }}/>
         </View>
       </View>

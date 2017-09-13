@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, Image, FlatList, Alert, TouchableOpacity, Dimensions, Picker, TextInput } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
-var width = Dimensions.get('window').width; 
+const width = Dimensions.get('window').width; 
 
 export default class List extends React.Component {
 
