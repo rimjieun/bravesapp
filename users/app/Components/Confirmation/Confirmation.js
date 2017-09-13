@@ -36,11 +36,8 @@ export default class Confirmation extends Component {
   }
 
   render() {
-    let title = 'C O N F I R M A T I O N';
-
     return (
       <View style={{flex: 1}}>
-        <Header title={title} />
         <Text style={styles.thankyou}>
           Thank you for your order!
         </Text>
@@ -77,11 +74,11 @@ const styles = StyleSheet.create({
     maxWidth: 300,
     alignContent: 'center',
     paddingTop: 20,
-    paddingBottom: 50
+    paddingBottom: 30
   },
   thankyou: {
     fontSize: 18,
-    paddingTop: 8,
+    paddingTop: 30,
     paddingBottom: 8,
     color: "#444",
     textAlign: 'center'
