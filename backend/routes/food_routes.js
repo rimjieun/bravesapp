@@ -15,6 +15,7 @@ foodRouter.use(bodyParser.json());
 
 //==================================GET Routes==============================================
 // User gets restaurant list
+
 foodRouter.get("/foodlist", function (connectionError, req, res, next) {
   if (connectionError) {
     res.json({
@@ -24,7 +25,9 @@ foodRouter.get("/foodlist", function (connectionError, req, res, next) {
   }
   return Vendor.find({})
         .then(function (restaurants) {
-          res.status(200).json(restaurants.userView());
+          res.status(200).json(restaurants: restaurants.map((restaurant) => {
+              return restaurant.userView()
+          }));
         })
         .catch(function (foodError) {
           console.log(foodError); //do something
@@ -32,7 +35,6 @@ foodRouter.get("/foodlist", function (connectionError, req, res, next) {
             "message": "Internal error"
           });
         });
-
 });
 
 
