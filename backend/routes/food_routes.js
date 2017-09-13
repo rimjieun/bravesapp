@@ -35,6 +35,34 @@ foodRouter.get("/foodlist", function (connectionError, req, res, next) {
 
 });
 
+
+
+// Gets full information for the vendor
+
+foodRouter.get("/vendor/:vendorname", (connectionError, req, res, next) => {
+    
+    // Authenticate user - uncomment when passport implemented
+    // if (!(req.user.username) && !(req.user.password) && req.user.role === "vendor") {
+    //     return res.status(403).json({error: "Unauthorized"});
+    // }
+
+    if (connectionError) {
+        return res.status(500).json({error: "Internal server error: connection error"})
+    }
+
+    return Vendor.findOne({vendorName: req.params.vendorName})
+        .then ((vendor) => {
+            return res.status(200).json(vendor);
+
+        })
+        .catch( (error) => {
+            console.log('Internal Server error: Vendor not found', error);
+            return res.status(404).json({error: "Internal server error: vendor not found."});
+        });
+
+});
+
+
 // Vendor gets orders for it's location
 foodRouter.get("/location/:number", function (connectionError, req, res, next ) {
   if (connectionError) {
@@ -158,10 +186,20 @@ foodRouter.get("/location/:number", function (connectionError, req, res, next ) 
     {
         username, password
     }
+
+    //Strategy
     
+    1. Validate that user has access to this endpoint
+    2. Check req.body for missing fields and return an array of missing fields if they exist.
+    3. Find the matching user object, and update it for the User Schema
+    4. Find the matching vendor based on the information in the user object, and update that too.
+
     */
         
     
+
+
+
 foodRouter.post('/user/order', function (connectionError, req, res, next) {
   if (connectionError) {
     return res.status(502).json({
@@ -251,18 +289,13 @@ foodRouter.post('/user/order', function (connectionError, req, res, next) {
                             return res.status(500).json({error: "Internal server error finding the vendor"});
                         });
 
-
-
-
-
                 })
                 .catch( (err) => {
                     console.log('There was an error saving', err);
+                    return res.status(500).json({error: "Internal server error saving the user"});
                 });
 
-
-            
-        }
+            }
 
         console.log(_user);
 
