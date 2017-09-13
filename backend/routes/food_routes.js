@@ -3,9 +3,14 @@
  */
 
 const express = require("express"), foodRouter = new express.Router();
-const Vendor = require("../models/vendor");
+const Vendor = require("../models/vendor"), User = require('./../models/user');
 const mongoose = require("mongoose");
+
 mongoose.Promise = global.Promise;
+
+const bodyParser = require('body-parser');
+foodRouter.use(bodyParser.urlencoded({extended: true}));
+foodRouter.use(bodyParser.json());
 
 //==================================GET Routes==============================================
 // User gets restaurant list
@@ -77,6 +82,16 @@ foodRouter.post('/user/order', function (connectionError, req, res, next) {
     });
 });
 
+
+//Vendor updates order status
+foodRouter.put("/completed", function(connectionError, req, res){
+    if(connectionError){
+        return res.status(502).json({
+            "message": "connection failed."
+        });
+    }
+
+});
 
 
 module.exports = foodRouter;
