@@ -32,13 +32,6 @@ export default class List extends React.Component {
 
   render() {
 
-    // const { navigate } = this.props.navigation;
-    if (this.props.navigation) {
-      console.log('nav prop exists');
-    } else {
-      console.log('nav prop does not exist');
-    }
-
     return (
       <View style={styles.list}>
         <FlatList
@@ -54,8 +47,7 @@ export default class List extends React.Component {
           renderItem={({item}) => 
             <TouchableOpacity onPress={() => {
               if (this.props.component === 'concessions') {
-                // Alert.alert(`Go to '${item}' menu`);
-                navigate('Menu')
+                Alert.alert(`Go to '${item}' menu`);
               } 
             }}>
               <View style={styles.item}>
