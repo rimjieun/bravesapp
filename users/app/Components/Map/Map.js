@@ -16,6 +16,7 @@ export default class Map extends Component {
 const styles = StyleSheet.create({
   map: {
     flex: 1,
+    resizeMode: 'stretch',
     width: width
   }
 });
