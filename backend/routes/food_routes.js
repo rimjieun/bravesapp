@@ -9,7 +9,7 @@ mongoose.Promise = global.Promise;
 
 //==================================GET Routes==============================================
 // User gets restaurant list
-foodRouter.get("/foodlist", function(req, res, connectionError){
+foodRouter.get("/foodlist", function(connectionError, req, res){
    if(connectionError){
        res.json({status: 502, message: "connection failed"});
    }
@@ -25,7 +25,7 @@ foodRouter.get("/foodlist", function(req, res, connectionError){
 });
 
 // Vendor gets orders for it's location
-foodRouter.get("/location/:number", function(req, res, connectionError){
+foodRouter.get("/location/:number", function(connectionError, req, res,){
    if(connectionError){
        res.status(502).json({"message": "connection failed."});
    }
@@ -54,11 +54,29 @@ foodRouter.get("/location/:number", function(req, res, connectionError){
 
 //==================================POST Routes=============================================
 
-foodRouter.post(/*no route idea*/, function(req, res, connectionError){
-    if(connectionError){
-        res.status(502).json({"message": "connection failed."});
+
+
+// User POSTS Order
+foodRouter.post('/user/order', function (connectionError, req, res, next) {
+    if (connectionError) {
+        return res.status(502).json({
+            "message": "connection failed."
+        });
     }
 
+    // Verify that the user has provided the necessary information
+
+    const missingFields = {};
+
+    const topLevelRequiredFields = ['username', 'password', 'first_name', 'last_name', 'role', 'sectionNumber', 'vendorName', 'currentOrder'];
+
+    topLevelRequiredFields.forEach((field) => {
+        if (!field in req.body) {
+            missingFields[field] = field;
+        }
+    });
 });
+
+
 
 module.exports = foodRouter;
