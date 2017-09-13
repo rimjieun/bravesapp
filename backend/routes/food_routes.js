@@ -315,4 +315,80 @@ foodRouter.post('/user/order', function (connectionError, req, res, next) {
 
 });
 
+
+
+//req.body.vendorName, locationNumber, orderNumber
+//Vendor updates order status
+foodRouter.put("/status", function(connectionError, req, res){
+    if(connectionError){
+        return res.status(502).json({
+            "message": "connection failed."
+        });
+    }
+
+    let _order; //access order within function
+    return Vendor
+        .findOneAndUpdate
+        ({"vendorName": req.body.vendorName})
+
+        .then(function(vendor){
+
+            vendor.locations.forEach (function(location){
+
+                if(location.locationNumber === req.body.locationNumber){
+
+                    location.locationOrders.forEach (function(order){
+
+                        if(order.orderNumber === req.body.orderNumber){
+                            order.completed = true;
+                            _order = Object.assign({}, order);
+                            
+                        } //pull user order
+                    
+                    })
+                }
+                
+            });
+
+            
+            return vendor.save()
+
+        })
+        
+        .then(function (savedVendor) {
+            console.log(savedVendor, 'Vendor has been saved');
+
+            let {firstName, lastName, userName} = _order.customer;
+
+            return User
+            .findOneAndUpdate({firstName, lastName, userName})
+
+            .then( (user) => {
+                console.log( 'returned user', user);
+                user.currentOrder.completed = true;
+
+                return user.save()
+                .then( (savedUser) => {
+                  console.log('user saved!', savedUser);
+                  return res.status(200).json({message: "The order has been updated successfully!", order: _order});  
+                
+                });
+
+            })
+
+                .catch(function (searchOrderError) {
+                    console.log(searchOrderError);
+                    return res.status(500).json({"message": "Internal error"});
+                });
+                //close the db connection
+            })
+            .catch(function(statusRouteError) {
+                console.log(statusRouteError);
+                return res.status(500).json({"message": "Internal error"});
+            });
+
+    // if this vendor's order.completed then notify user by changing user status ()
+
+});
+
 module.exports = foodRouter;
