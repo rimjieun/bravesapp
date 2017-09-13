@@ -17,7 +17,7 @@ export default class Menu extends Component {
     //Fetch call:
     //Use either 'http://localhost:8080/food/:vendor/menu'
     //or 'http://<your IPv4 address>:8080/food/:vendor/menu'
-    fetch(`http://192.168.0.104:8080/food/${vendor}/menu`)
+    fetch(`http://localhost:8080/food/${vendor}/menu`)
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({menu: responseJson});
