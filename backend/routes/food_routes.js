@@ -50,10 +50,6 @@ foodRouter.get("/location/:number", function(req, res, connectionError){
 
 });
 
-module.exports = foodRouter;
-
-
-
 
 
 //JIEUN TESTING VENDOR MOCK DATA**********************************************************
@@ -65,3 +61,4 @@ foodRouter.get("/vendors", function(req, res){
 });
 //*******************************************************************************************
 //*******************************************************************************************
+module.exports = foodRouter;

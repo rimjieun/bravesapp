@@ -80,12 +80,12 @@ const userSchema = new mongoose.Schema({
 
 });
 
-userSchema.pre('save', function (next) {
-
-    if (this.role === 'vendor' && !this.password) {
-        return next(new Error('The password is required when the role is vendor'));
-    }
-});
+// userSchema.pre('save', function (next) {
+//
+//     if (this.role === 'vendor' && !this.password) {
+//         return next(new Error('The password is required when the role is vendor'));
+//     }
+// });
 
 
 

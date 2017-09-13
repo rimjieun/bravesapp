@@ -64,6 +64,4 @@ module.exports = (app, path, passport) => {
     });
 
 
-
-
 };

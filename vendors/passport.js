@@ -1,8 +1,7 @@
 const LocalStrategy =  require("passport-local").Strategy;
-const mongoose = require('mongoose');
 const User = require("../backend/models/user");
 
-mongoose.Promise = global.Promise;
+
 
 module.exports = (passport) => {
 
@@ -27,7 +26,7 @@ module.exports = (passport) => {
         passReqToCallback: true
     }, (req, email, password, done) => {
 
-        console.log(email, password);
+        console.log(req.body.username);
 
         process.nextTick(() => {
 
@@ -40,7 +39,6 @@ module.exports = (passport) => {
                     return done(null, false, {message: "Email already registered"});
                 } else{
                     const newUser = new User();
-
                     newUser.username = req.body.username;
                     newUser.currentOrder.vendorName = req.body.vendorName;
                     newUser.role = "vendor";
@@ -48,17 +46,7 @@ module.exports = (passport) => {
                     newUser.firstName = req.body.firstName;
                     newUser.sectionNumber = 2;
                     newUser.password = newUser.hashPassword(password);
-
-
                     console.log(newUser);
-
-                    // return User.create(newUser)
-                    //     .then((_user) => {
-                    //         console.log("__", _user);
-                    //     })
-                    //     .catch((err) => {
-                    //         console.log(err);
-                    //     });
 
                     newUser.save((err) => {
                         if(err)
