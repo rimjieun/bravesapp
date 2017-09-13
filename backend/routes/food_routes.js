@@ -1,4 +1,4 @@
-/**
+
 
 const express = require("express"),
   foodRouter = new express.Router();
@@ -13,27 +13,27 @@ foodRouter.use(bodyParser.json());
 
 //==================================GET Routes==============================================
 // User gets restaurant list
-
-foodRouter.get("/foodlist", function (connectionError, req, res, next) {
-  if (connectionError) {
-    res.json({
-      status: 502,
-      message: "connection failed"
-    });
-  }
-  return Vendor.find({})
-        .then(function (restaurants) {
-          res.status(200).json(restaurants: restaurants.map((restaurant) => {
-              return restaurant.userView()
-          }));
-        })
-        .catch(function (foodError) {
-          console.log(foodError); //do something
-          return res.status(500).json({
-            "message": "Internal error"
-          });
-        });
-});
+//
+// foodRouter.get("/foodlist", function (connectionError, req, res, next) {
+//   if (connectionError) {
+//     res.json({
+//       status: 502,
+//       message: "connection failed"
+//     });
+//   }
+//   return Vendor.find({})
+//         .then(function (restaurants) {
+//           res.status(200).json(restaurants: restaurants.map((restaurant) => {
+//               return restaurant.userView()
+//           }));
+//         })
+//         .catch(function (foodError) {
+//           console.log(foodError); //do something
+//           return res.status(500).json({
+//             "message": "Internal error"
+//           });
+//         });
+// });
 
 
 

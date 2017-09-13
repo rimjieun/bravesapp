@@ -35,7 +35,6 @@ app.use(session({secret: "wewinthishackerthons"}));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/food", food_router);
 
 app.use('/food', foodRouter);
 require("./vendors/routes/routes")(app, path, passport);
