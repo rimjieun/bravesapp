@@ -73,8 +73,6 @@ export default class Menu extends Component {
     this.getMenu(this.props.vendor);
   }
 
- 
-
   render() {
 
     let title = 'M E N U';

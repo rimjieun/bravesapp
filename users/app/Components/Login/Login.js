@@ -20,12 +20,14 @@ export default class Login extends Component {
           Username{'\n'}
         </Text>
         <TextInput style={styles.input}
-          underlineColorAndroid={'rgba(0,0,0,0)'} onChangeText={(text) => {this.state.customer.username = text}} />
+          underlineColorAndroid={'rgba(0,0,0,0)'} onChangeText={(text) => {this.state.customer.username = text}}
+          defaultValue='Brittany38' />
         <Text style={styles.label}>
           {'\n'}Password{'\n'}
         </Text>
         <TextInput style={styles.input} secureTextEntry={true}
-          underlineColorAndroid={'rgba(0,0,0,0)'} onChangeText={(text) => {this.state.customer.password = text}} />
+          underlineColorAndroid={'rgba(0,0,0,0)'} onChangeText={(text) => {this.state.customer.password = text}}
+          defaultValue='YIKWYeIGwBqXW_I' />
         <Text>{'\n'}</Text>
         <TouchableOpacity style={[styles.loginBtn, styles.btn]} onPress={() => Actions.concessions({})}>
           <Text style={styles.btnText}>L O G I N</Text>

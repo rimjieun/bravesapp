@@ -15,6 +15,17 @@ export default class Concessions extends Component {
     };
   }
 
+  postData() {
+    let obj = {
+      firstName: "Xzavier",
+      lastName: "Funk",
+      username: "Brittany38",
+      password: "YIKWYeIGwBqXW_I",
+      role: "customer",
+      sectionNumber: 354
+    };
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -23,12 +34,12 @@ export default class Concessions extends Component {
         <View>
           <Text>{'\n'}</Text>
           <Text style={[styles.label, styles.center]}>Customer Name</Text>
-          <TextInput style={[styles.input, styles.bigBox, styles.textCenter]} defaultValue='John Smith' underlineColorAndroid={'rgba(0,0,0,0)'} onChangeText={(text) => {
+          <TextInput style={[styles.input, styles.bigBox, styles.textCenter]} defaultValue='Xzavier Funk' underlineColorAndroid={'rgba(0,0,0,0)'} onChangeText={(text) => {
             this.setState({customerName: text});
           }} />
           <View style={styles.center}>
             <Text style={styles.label}>Section Number</Text>
-            <TextInput style={[styles.input, styles.smallBox, styles.center, styles.textCenter]} defaultValue='147' underlineColorAndroid={'rgba(0,0,0,0)'} onChangeText={(text) => {
+            <TextInput style={[styles.input, styles.smallBox, styles.center, styles.textCenter]} underlineColorAndroid={'rgba(0,0,0,0)'} onChangeText={(text) => {
               this.setState({sectionNumber: text});
             }} />
           </View>
@@ -61,7 +72,8 @@ export default class Concessions extends Component {
         </View>
         <Text>{'\n'}{'\n'}</Text>
         <TouchableOpacity style={styles.submitBtn} onPress={() => {
-          // this.props.submitSecNum(this.state.sectionNumber);
+          console.log('in payment: ', this.state.sectionNumber);
+          this.props.submitSecNum(this.state.sectionNumber);
           Actions.confirmation({});
         }}>
           <Text style={styles.submitText}>S U B M I T</Text>
