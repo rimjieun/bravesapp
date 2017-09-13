@@ -18,7 +18,7 @@ require('dotenv').config();
 // Initialize server
 const app = express();
 
-require("./vendors/passport")(passport);
+// require("./vendors/passport")(passport);
 
 // Logging
 app.use(morgan('combined'));
@@ -30,17 +30,20 @@ const User = require('./backend/models/user');
 const mock = require('./backend/models/vendor_mock');
 const foodRouter = require('./backend/routes/food_routes');
 
+// require("./vendors/routes/routes")(app, path, passport);
 app.use('/food', foodRouter);
-require("./vendors/routes/routes")(app, path, passport);
 
-
+// app.get('/test', (req,res) => {
+//   console.log('hello');
+//   return res.status(200).send("hello");
+// });
 
 const dbConnection = (dbUrl=process.env.DB_URL) => {
   return mongoose.connect(dbUrl, {useMongoClient: true})
     .then( () => {
       console.log('Mongoose connection to bravesDb active.');
       return Vendor.find()
-       .then( (result) => console.log('now in the db:', JSON.stringify(result, null, 2) ));
+      //  .then( (result) => console.log('now in the db:', JSON.stringify(result, null, 2) ));
     })
     .catch(err => console.log(err));
 };

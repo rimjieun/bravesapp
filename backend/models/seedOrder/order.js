@@ -1,4 +1,4 @@
-{
+module.exports = {
   "currentOrder": {
     "order": [
       {
@@ -34,6 +34,6 @@
   "lastName": "Funk",
   "userName": "Brittany38",
   "password": "YIKWYeIGwBqXW_I",
-  "role": "vendor, customer",
+  "role": "customer",
   "sectionNumber": 354
 }

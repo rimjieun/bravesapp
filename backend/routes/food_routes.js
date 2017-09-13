@@ -16,13 +16,13 @@ foodRouter.use(bodyParser.json());
 //==================================GET Routes==============================================
 // User gets restaurant list
 
-foodRouter.get("/foodlist", function (connectionError, req, res, next) {
-  if (connectionError) {
-    res.json({
-      status: 502,
-      message: "connection failed"
-    });
-  }
+foodRouter.get('/test', (req, res) => {
+  console.log(`this is food router`);
+  return res.status(200).send('hello this is food router');
+})
+
+foodRouter.get("/foodlist", function (req, res) {
+
   return Vendor.find({})
         .then(function (restaurants) {
           res.status(200).json  ({restaurants: restaurants.map((restaurant) => {
@@ -41,18 +41,16 @@ foodRouter.get("/foodlist", function (connectionError, req, res, next) {
 
 // Gets full information for the vendor
 
-foodRouter.get("/vendor/:vendorname", (connectionError, req, res, next) => {
+foodRouter.post("/vendor", (req, res) => {
     
     // Authenticate user - uncomment when passport implemented
     // if (!(req.user.username) && !(req.user.password) && req.user.role === "vendor") {
     //     return res.status(403).json({error: "Unauthorized"});
     // }
 
-  if (connectionError) {
-      return res.status(500).json({error: "Internal server error: connection error"});
-    }
 
-  return Vendor.findOne({vendorName: req.params.vendorName})
+
+  return Vendor.findOne({vendorName: req.body.vendorName})
         .then ((vendor) => {
           return res.status(200).json(vendor);
 
@@ -123,34 +121,34 @@ foodRouter.get('/users', (req, res) => {
 
 
 
-foodRouter.put('/get', (req, res) => {
-  console.log('this route is working too!');
+// foodRouter.put('/get', (req, res) => {
+//   console.log('this route is working too!');
 
-  return User.findByIdAndUpdate({"_id":"59b796b71f7309d084bb512a"})
-    .then( (user) => {
-      console.log('this is then');
-      console.log(user, 'THIS IS THE USER!!');
+//   return User.findByIdAndUpdate({"_id":"59b796b71f7309d084bb512a"})
+//     .then( (user) => {
+//       console.log('this is then');
+//       console.log(user, 'THIS IS THE USER!!');
 
-      user.role = "vendor";
-      user.firstName = "Esterling";
-      user.lastName = "Accime";
-      console.log('changed user', user);
-      return user.save()
-        .then ((_user) => {
-          console.log(_user, '_user');
-          return res.status(200).json(user);
-        })
-        .catch( (err) => {
-          console.log(err, 'error inside the save!');
-        });
+//       user.role = "vendor";
+//       user.firstName = "Esterling";
+//       user.lastName = "Accime";
+//       console.log('changed user', user);
+//       return user.save()
+//         .then ((_user) => {
+//           console.log(_user, '_user');
+//           return res.status(200).json(user);
+//         })
+//         .catch( (err) => {
+//           console.log(err, 'error inside the save!');
+//         });
 
-    })
-    .catch( (err) => {
-      console.log(err, 'error');
-      return res.status(400).json({error:"error"});
-    });
+//     })
+//     .catch( (err) => {
+//       console.log(err, 'error');
+//       return res.status(400).json({error:"error"});
+//     });
 
-});
+// });
 
 
 // Create a user
@@ -199,12 +197,10 @@ foodRouter.post('/createuser', (req, res) => {
 
 
 
-foodRouter.post('/user/order', function (connectionError, req, res, next) {
-  if (connectionError) {
-    return res.status(502).json({
-      "message": "connection failed."
-    });
-  } 
+foodRouter.post('/user/order', function (req, res) {
+  
+  console.log('Hello');
+  console.log('REQ.BODY', JSON.stringify(req.body, null, 2));
 
     // Authenticate user - uncomment when passport implemented
     // if (!(req.user.username) && !(req.user.password) && req.user.role === "customer") {
@@ -212,30 +208,30 @@ foodRouter.post('/user/order', function (connectionError, req, res, next) {
     // }
 
 
-  const missingFields = [];
+  // const missingFields = [];
 
-  const topLevelRequiredFields = ['username', 'password', 'firstName', 'lastName', 'role', 'sectionNumber', 'currentOrder'];
+  // const topLevelRequiredFields = ['username', 'password', 'firstName', 'lastName', 'role', 'sectionNumber', 'currentOrder'];
 
-  const secondLevelRequiredFields = ['vendorName', 'order'];
+  // const secondLevelRequiredFields = ['vendorName', 'order'];
 
-  topLevelRequiredFields.forEach( (field) => {
-    if (! (field in req.body)) {
-      missingFields.push(field);
-    }
-  });
+  // topLevelRequiredFields.forEach( (field) => {
+  //   if (! (field in req.body)) {
+  //     missingFields.push(field);
+  //   }
+  // });
 
-  secondLevelRequiredFields.forEach( (field) => {
-    if (! (field in req.body.currentOrder)) {
-      missingFields.push(field);
-    }
-  });
+  // secondLevelRequiredFields.forEach( (field) => {
+  //   if (! (field in req.body.currentOrder)) {
+  //     missingFields.push(field);
+  //   }
+  // });
     
-  if (missingFields.length === 0) {
-    return res.status(400).json({missingFields: missingFields});
-  }
+  // if (missingFields.length === 0) {
+  //   return res.status(400).json({missingFields: missingFields});
+  // }
 
   let _user;
-  return User  
+  User  
     .findOneAndUpdate({username: req.body.username, firstName:req.body.firstName, lastName: req.body.lastName})
     .then( (user) => {
         // assign the user the right location and generates an order number using the internal methods:
@@ -243,30 +239,33 @@ foodRouter.post('/user/order', function (connectionError, req, res, next) {
       user.orderNumberGenerator();
       var locationNumber = user.currentOrder.locationNumber;
         
-
+      console.log('THE USER HAS HAD THEIR LOCATION NUMBER ASSIGNED', user);
         
         // 1. If the passwords match, create the updated user object to be saved to the user DB and returned to the user (updating the order info on the front end), including the updated location value
         // 2. Grab the current order and push it to the end of the array the the specific location
-      if (user.password === req.body.password) {
+        console.log('LINE 246 - USER.CURRENTORDER', user.currentOrder);
           let currentOrder = Object.assign( {}, user.currentOrder);
-            
+            console.log(currentOrder, 'CURRENT ORDER');
             // grab the vendor name and location number to find the data in the vendor object
-          const {vendorName, locationNumber} = currentOrder;
+          const {vendorName} = currentOrder;
 
             //merge the user object and overwrite the req.body of the current order
           _user = Object.assign( {}, user, req.body);
+          console.log(_user, 'UNDERSCORE USER');
             
             // save the user to the DB, then find the same order with the vendor, and save it there too
-          return _user.save()
+            user.save()
                 .then( (savedUser) => {
                   console.log('The user has been saved!', savedUser);
 
-                  return Vendor.findOneAndUpdate({vendorName})
+                  return Vendor.findOneAndUpdate({"vendorname": vendorName})
                         .then( (vendor) => {
+                          console.log(vendor, 'VENDOR INSIDE VENDOR UPDATE');
                           vendor.locations.forEach( (location) => {
                                 // if the location numbers match, push the order to the end of the locationorders array
                               if (location.locationNumber === locationNumber) {
-                                  location.locationOrders.push(currentOrder);
+                                console.log('LOCATION', location);
+                                  location.order.push(currentOrder);
                                 }
                             });
 
@@ -294,7 +293,7 @@ foodRouter.post('/user/order', function (connectionError, req, res, next) {
                   return res.status(500).json({error: "Internal server error saving the user"});
                 });
 
-        }
+        
 
       console.log(_user);
 
