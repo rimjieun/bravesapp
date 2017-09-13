@@ -4,20 +4,71 @@
     <meta charset="UTF-8">
     <title>Sign Up</title>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 </head>
 <body>
 
-    <h1>Please sign up</h1>
-    <form action="/signup" method="POST">
-        <input type="text"  name="username" placeholder="username"> <br>
-        <input type="text"  name="email" placeholder="email"> <br>
-        <input type="password"  name="password" placeholder="password"> <br>
-        <input type="text"  name="lastName" placeholder="lastName"> <br>
-        <input type="text"  name="firstName" placeholder="firstName"> <br>
-        <input type="text"  name="vendorName" placeholder="vendorName"> <br>
-        <!--<input type="text"  name="role" placeholder="role" hidden> <br>-->
+    <!--<h1>Please sign up</h1>-->
+    <!--<form action="/signup" method="POST">-->
+        <!--<input type="text"  name="username" placeholder="username"> <br>-->
+        <!--<input type="text"  name="email" placeholder="email"> <br>-->
+        <!--<input type="password"  name="password" placeholder="password"> <br>-->
+        <!--<input type="text"  name="lastName" placeholder="lastName"> <br>-->
+        <!--<input type="text"  name="firstName" placeholder="firstName"> <br>-->
+        <!--<input type="text"  name="vendorName" placeholder="vendorName"> <br>-->
+        <!--&lt;!&ndash;<input type="text"  name="role" placeholder="role" hidden> <br>&ndash;&gt;-->
 
-        <button>Sign Up</button>
-    </form>
+        <!--<button>Sign Up</button>-->
+    <!--</form>-->
+
+    <!--email-->
+    <!--password-->
+    <!--vendorName-->
+    <!--role-->
+
+    <h4>Please fill out the form</h4>
+
+    <div class="row">
+        <form class="col s12" action="/signup" method="POST">
+            <div class="row">
+                <div class="input-field col s6">
+                    <input placeholder="Firstname" id="firstName" type="text" class="validate" name="firstName">
+                    <label for="firstName">First Name</label>
+                </div>
+
+                <div class="input-field col s6">
+                    <input id="username" type="text" class="validate" name="username">
+                    <label for="username">Username</label>
+                </div>
+
+                <div class="input-field col s6">
+                    <input id="lastName" type="text" class="validate" name="lastName">
+                    <label for="lastName">Last Name</label>
+                </div>
+
+                <div class="input-field col s6">
+                    <input id="email" type="text" class="validate" name="email">
+                    <label for="email">Email</label>
+                </div>
+
+                <div class="input-field col s6">
+                    <input id="password" type="text" class="validate" name="password">
+                    <label for="password">Password</label>
+                </div>
+
+                <div class="input-field col s6">
+                    <input id="vendorName" type="text" class="validate" name="vendorName">
+                    <label for="vendorName">Vendor Name</label>
+                </div>
+            </div>
+
+            <button class="waves-effect waves-light btn">Sign Up</button>
+
+        </form>
+    </div>
 </body>
 </html>

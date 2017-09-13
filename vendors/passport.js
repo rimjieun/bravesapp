@@ -67,24 +67,24 @@ module.exports = (passport) => {
     }));
 
 
-    // passport.use("local-login", new LocalStrategy({
-    //     usernameField:"email",
-    //     passwordField: "password",
-    //     passReqToCallback: true
-    // }, function (req, email, password, done) {
-    //
-    //     Vendor.findOne({"local.email": email}, function (err, user) {
-    //         if(err)
-    //             return done(err);
-    //         if(!user)
-    //             return done(null, false, {message: "No user found"});
-    //
-    //         if(!user.validatePassword(password))
-    //             return done(null, false, {message: "Ooops! wrong password"});
-    //
-    //         return done(null, user);
-    //     });
-    // }));
+    passport.use("local-login", new LocalStrategy({
+        usernameField:"email",
+        passwordField: "password",
+        passReqToCallback: true
+    }, function (req, email, password, done) {
+
+        User.findOne({"local.email": email}, function (err, user) {
+            if(err)
+                return done(err);
+            if(!user)
+                return done(null, false, {message: "No user found"});
+
+            if(!user.validatePassword(password))
+                return done(null, false, {message: "Ooops! wrong password"});
+
+            return done(null, user);
+        });
+    }));
 
 
 };

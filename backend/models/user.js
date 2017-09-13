@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         minlength: 4,
         // match: userValidation,
-        // trim: true
+        trim: true
     },
     local:{
         email:{
@@ -53,44 +53,6 @@ const userSchema = new mongoose.Schema({
     required: true
   },
 
-  currentOrder: {
-    vendorName: {
-      type: String,
-      // match: vendorValidation,
-    },
-    order: {
-      type: [productSchema],
-    },
-    orderNumber: {
-      type: String,
-    },
-
-    firstName: {
-        type: String,
-        // minlength: 2,
-        // required: true,
-        // trim: true
-    },
-    lastName: {
-        type: String,
-        // minlength: 2,
-        // required: true,
-        // trim: true
-    },
-    role: {
-        type: String,
-        // match: roleValidation
-
-
-    },
-    // // for the user, their sectionnumber on their ticket
-    // // for the vendor, their location number
-    sectionNumber: {
-        type: Number,
-        // required: true
-    },
-
-
     currentOrder: {
         vendorName: {
             type: String,
@@ -119,8 +81,6 @@ const userSchema = new mongoose.Schema({
 
         }
     },
-  },
-
 
 });
 
@@ -287,7 +247,7 @@ userSchema.methods.hashPassword = function (password) {
 
 // Returns a boolean comparing the object's hash of the password to one passed into the function
 userSchema.methods.validatePassword = function (password) {
-    return bcrypt.compareSync(password, this.password);
+    return bcrypt.compareSync(password, this.local.password);
 };
 
 const User = mongoose.model('user', userSchema);
