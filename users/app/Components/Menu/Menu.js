@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button, Alert, Dimensions } from 'react-native';
 import Header from './../common/Header';
 import Banner from './../common/Banner';
 import List from './../common/List';
+
+var width = Dimensions.get('window').width; 
 
 export default class Menu extends Component {
 
   constructor() {
     super();
     this.state = {
-      menu: []
+      menu: [],
+      order: [],
+      orderTotal: 0
     };
+    this.updateOrder = this.updateOrder.bind(this);
+    this.calculateOrderTotal = this.calculateOrderTotal.bind(this);
   }
 
   getMenu(vendor) {
@@ -27,11 +33,40 @@ export default class Menu extends Component {
       });
   }
 
+  updateOrder(itemObj) {
+    let list = this.state.order;
+    if (list.length === 0) {
+      list.push(itemObj);
+    } else {
+      let found = list.some((item) => {
+        return item.name === itemObj.name;
+      });
+      if (found) {
+        list.forEach((item) => {
+          if (item.name === itemObj.name) {
+            item.quantityOrdered = itemObj.quantityOrdered;
+          }
+        })
+      } else {
+        list.push(itemObj);
+      }
+    }
+    this.calculateOrderTotal();
+  }
+
+  calculateOrderTotal() {
+    let list = this.state.order;
+    let orderTotal = 0;
+    list.forEach((item) => orderTotal += item.price * item.quantityOrdered);
+    this.setState({orderTotal: orderTotal});
+  }
+
   componentWillMount() {
     this.getMenu(this.props.vendor);
   }
 
   render() {
+
     let title = 'M E N U';
     let bannerURI = './../../assets/img/food.png';
 
@@ -39,8 +74,34 @@ export default class Menu extends Component {
       <View style={{flex: 1}}>
         <Header title={title} />
         <Banner bannerURI={bannerURI} />
-        <List component='menu' list={this.state.menu} />
+        <List component='menu' list={this.state.menu} updateOrder={this.updateOrder} />
+        <View style={styles.footer}>
+          <Text style={styles.totalText}>
+            Total:
+          </Text>
+          <Text style={styles.totalText}>
+            ${this.state.orderTotal.toFixed(2)}
+          </Text>
+          <Button style={styles.orderBtn} title='Order' onPress={(e) => {
+            e.preventDefault();
+            Alert.alert('Go to payment');
+          }}/>
+        </View>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  footer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  totalText: {
+    fontSize: 30
+  },
+  orderBtn: {
+    padding: 20
+  }
+});

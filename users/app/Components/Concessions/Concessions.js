@@ -33,8 +33,6 @@ export default class Concessions extends Component {
 
   render() {
 
-    console.log('key: ' + this.state.vendors);
-
     let title = 'C O N C E S S I O N S';
     let bannerURI = './../../assets/img/food.png';
 

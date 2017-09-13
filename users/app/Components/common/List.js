@@ -1,10 +1,17 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, FlatList, Alert, TouchableOpacity, Dimensions, Picker } from 'react-native';
+import { StyleSheet, View, Text, Image, FlatList, Alert, TouchableOpacity, Dimensions, Picker, TextInput } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 var width = Dimensions.get('window').width; 
 
 export default class List extends React.Component {
+
+  constructor() {
+    super();
+    this.state = {
+      number: 0
+    };
+  }
 
   selectComponentItems(component, item) {
     if (component === 'concessions') {
@@ -19,16 +26,28 @@ export default class List extends React.Component {
         <View style={styles.menuItem}>
           <Text style={styles.menuName}>{item.name}</Text>
           <Text style={styles.menuPrice}>{item.price.toFixed(2)}</Text>
-          <Picker> 
-            <Picker.Item  
-              label='Hello' 
-              value='hello' 
-            /> 
-          </Picker>
+          <Text>x</Text>
+          <TextInput
+            style={styles.textInput}
+            underlineColorAndroid={'rgba(0,0,0,0)'}
+            onChangeText={(text) => {
+              const itemObj = {
+                name: item.name,
+                price: item.price,
+                quantityOrdered: text.trim()
+              };
+              this.props.updateOrder(itemObj);
+              // this.setState({number: itemTotal.toFixed(2)});
+            }}
+          />
         </View>
       );
     }
   }
+
+  // componentDidUpdate() {
+  //   console.log('input num: ', this.state.number);
+  // }
 
   render() {
 
@@ -48,12 +67,9 @@ export default class List extends React.Component {
             <TouchableOpacity onPress={() => {
               if (this.props.component === 'concessions') {
                 Actions.menu({vendor: item});
-                // Alert.alert(`Go to '${item}' menu`);
               } 
             }}>
-              <View style={styles.item}>
                 {this.selectComponentItems(this.props.component, item)}
-              </View>
             </TouchableOpacity>
           }
         />
@@ -96,5 +112,14 @@ const styles = StyleSheet.create({
   },
   menuPrice: {
     fontSize: 15
+  },
+  textInput: {
+    height: 30,
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: 'lightgray',
+    borderStyle: 'solid',
+    padding: 3,
+    textAlign: 'center'
   }
 });
