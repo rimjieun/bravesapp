@@ -39,7 +39,10 @@ const styles = StyleSheet.create({
     right: 15,
     backgroundColor: '#EEB111',
     padding: 15,
-    borderRadius: 50
+    borderRadius: 50,
+    borderColor: '#bf8c0d',
+    borderStyle: 'solid',
+    borderWidth: 1
   },
   mapIcon: {
     width: 35,

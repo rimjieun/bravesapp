@@ -93,8 +93,6 @@ const styles = StyleSheet.create({
   footer: {
     flex: 1,
     flexDirection: 'row',
-    // justifyContent: 'space-between',
-    // position: 'relative',
     backgroundColor: '#bfbfbf',
     borderColor: '#D31245',
     borderStyle: 'solid',
@@ -112,7 +110,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#EEB111',
     justifyContent: 'center',
-    borderColor: '#D31245',
+    borderColor: '#d79e0f',
     borderStyle: 'solid',
     borderLeftWidth: 1
   },

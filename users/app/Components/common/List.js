@@ -17,8 +17,8 @@ export default class List extends React.Component {
     if (component === 'concessions') {
       return (
         <View style={styles.vendorItem}>
-          <Image style={styles.thumbnail} source={require('./../../assets/img/pizza.png')} />
-          <Text style={styles.vendorName}>{item}</Text>
+          <Image style={styles.thumbnail} source={require('./../../assets/img/asdf.jpg')} />
+          <Text style={styles.vendorName}>{item.toUpperCase()}</Text>
         </View>
       );
     } else if (component === 'menu') {
@@ -102,9 +102,9 @@ const styles = StyleSheet.create({
   },
   vendorName: {
     flex: 4,
-    fontSize: 28,
-    fontFamily: 'serif'
-    
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginLeft: 20
   },
   menuName: {
     fontSize: 15,
