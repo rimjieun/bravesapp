@@ -31,6 +31,6 @@ function mapStateToProps(state, ownProps) {
     vendors: state.vendors
   };
 }
-}
+
 
 export default VendorLocationPage;
