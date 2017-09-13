@@ -36,8 +36,6 @@ app.use(passport.session());
 app.use('/food', foodRouter);
 require("./vendors/routes/routes")(app, path, passport);
 
-
-
 const dbConnection = (dbUrl=process.env.DB_URL) => {
   return mongoose.connect(dbUrl)
     .then( () => {
@@ -47,7 +45,6 @@ const dbConnection = (dbUrl=process.env.DB_URL) => {
     })
     .catch(err => console.log(err));
 };
-
 
 let server;
 // console.log('PROCESS',process.env)
