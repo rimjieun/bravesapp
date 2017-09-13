@@ -7,7 +7,7 @@ const width = Dimensions.get('window').width;
 export default class Map extends Component {
   render() {
     return (
-        <Image style={styles.map} source={require('./../../assets/img/concessions_map.jpg')} />
+        <Image style={styles.map} source={require('./../../assets/img/map.jpg')} />
     );
   }
 }
