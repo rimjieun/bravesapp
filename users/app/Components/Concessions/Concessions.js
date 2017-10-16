@@ -14,10 +14,7 @@ export default class Concessions extends Component {
   }
 
   getVendors() {
-    //Fetch call:
-    //Use either 'http://localhost:8080/food/vendors'
-    //or 'http://<your IPv4 address>:8080/food/vendors'
-    fetch('http://10.191.50.166:8080/food/vendors')
+    fetch('http://<your IPv4 address>:8080/food/vendors')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({vendors: responseJson});
