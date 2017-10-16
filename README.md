@@ -25,7 +25,7 @@ The purpose of Braves Concessions is to make ordering food easier for consumers 
 
 ![Payment Page](./screenshots/payment.png)
 
-**If the order was successful, a confirmation page should appear.**
+**If the order is successful, a confirmation page should appear with the nearest concession stand for food pick-up.**
 
 ![Confirmation Page](./screenshots/confirmation.png)
 
