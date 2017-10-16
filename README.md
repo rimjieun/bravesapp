@@ -10,18 +10,23 @@ The objective of the Atlanta Braves Hackathon was to increase consumer engagemen
 The purpose of Braves Concessions is to make ordering food easier for consumers at the SunTrust Park on game days.
 
 **After registration, the user logs in with credentials.**
+
 ![Login Page](./screenshots/login.png)
 
 **The user selects a vendor.**
+
 ![Concessions Page](./screenshots/concessions.png)
 
 **The user inputs a quantity for desired menu items.**
+
 ![Menu Page](./screenshots/menu.png)
 
 **The user inputs their payment information.**
+
 ![Payment Page](./screenshots/payment.png)
 
-**If the order was successful, a confirmation page should appear.**
+**If the order is successful, a confirmation page should appear with the nearest concession stand location for pick-up.**
+
 ![Confirmation Page](./screenshots/confirmation.png)
 
 ## Development Implementations
