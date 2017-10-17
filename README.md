@@ -30,11 +30,11 @@ The purpose of Braves Concessions is to make ordering food easier for consumers 
 ![Confirmation Page](./screenshots/confirmation.png)
 
 ## Development Implementations
-MERN stack
-- MongoDB
-- Express.js
-- React Native
-- Node.js
+- MERN Framework
+  - MongoDB
+  - Express.js
+  - React Native
+  - Node.js
 
 | Node Package        | Version |
 |---------------------|---------|
